@@ -1,1 +1,7 @@
 Hey, this is where I will be adding a bunch of projects that I have worked on in the past as well as ones that I am currently working on.
+
+01/23/14-
+
+Started documenting date!
+Added two new files, one of which is “uw-api.rkt”, which is required for the other file to work.
+This second file “My-schedule.rkt” will give your schedule and information to your waterloo courses for the term. An example was given in the file already with my schedule.
