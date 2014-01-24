@@ -5,3 +5,7 @@ Hey, this is where I will be adding a bunch of projects that I have worked on in
 Started documenting date!
 Added two new files, one of which is “uw-api.rkt”, which is required for the other file to work.
 This second file “My-schedule.rkt” will give your schedule and information to your waterloo courses for the term. An example was given in the file already with my schedule.
+
+01/24/14-
+
+Added another file, “FoodForThought.rkt” which is a work in progress,but essentially produces the foods that the University of Waterloo is serving this week in an order of increasing content, such as fat, calories, fat percentage, etc. This aims at helping people choose the right food and hopefully can make people aware of what they are eating.
