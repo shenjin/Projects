@@ -1,5 +1,5 @@
 %Spaceshipboss
-if Spaceshipyb > 600 then
+if Spaceshipyb > 500 then
     Spaceshipyb := Spaceshipyb - 1
 else
     Spaceshipxb := Spaceshipxb + m2

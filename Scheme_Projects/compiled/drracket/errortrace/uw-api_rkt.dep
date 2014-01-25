@@ -1,0 +1,1 @@
+("5.3.6" ("5bb2c5ad90c26dbafc64139183ba30871c429188" . "133dc49da44b3f3389fda0a42996115cc063fa97") (collects #"net" #"url.rkt") (collects #"json" #"main.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"lang" #"reader.rkt"))

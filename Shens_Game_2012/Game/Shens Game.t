@@ -44,39 +44,44 @@ proc game
 	include "Resources/Asteroids2.t"
 	%Asteroids3
 	include "Resources/Asteroids3.t"
-	if counter2 >= 1000 then
+	if counter2 >= 750 then
 	    %Pulsefires
-	    include "Resources/Pulsefires.t"
+	    include "Resources/Bigasteroid.t"
 	end if
 	%Missile
-	if counter2 >= 2000 then
+	if counter2 >= 1000 then
 	    include "Resources/Missile.t"
 	end if
-	if counter2 >= 3000 then
+	if counter2 >= 1500 then
 	    %Spaceship1
 	    include "Resources/Spaceship1.t"
 	end if
-	if counter2 >= 4000 then
+	if counter2 >= 1750 then
 	    %Spaceship2
 	    include "Resources/Spaceship2.t"
 	end if
-	if counter2 >= 5000 then
+	if counter2 >= 2000 then
 	    %Spaceshipboss
 	    include "Resources/SpaceshipBoss.t"
 	end if
-
 	%Fuel Gague
 	Bar := Bar - 1
 	Draw.FillBox (Fuelgaguex - 2, Fuelgaguey + 2, maxx - 8, maxy - 56, grey)
 	Draw.FillBox (Fuelgaguex, Fuelgaguey, maxx - 10, maxy - 54, black)
 	Draw.FillBox (Fuelgaguex, Fuelgaguey, Bar, maxy - 54, red)
 	%Health Bar
+	if Bar2 + 1 < maxx - 10 then
+	    Bar2 := Bar2 + 1
+	else
+	    Bar2 := Bar2
+	end if
 	Draw.FillBox (Healthx - 2, Healthy + 2, maxx - 8, maxy - 29, grey)
 	Draw.FillBox (Healthx, Healthy, maxx - 10, maxy - 27, black)
 	Draw.FillBox (Healthx, Healthy, Bar2, maxy - 27, green)
+
 	%Refresh
 	View.Update
-	delay (10)
+	delay (5)
 	cls
 	%Exit statement
 	exit when Bar2 <= 10
@@ -85,7 +90,7 @@ proc game
 end game
 
 proc maingame
-    var Shipwreck : int := Pic.FileNew ("Game/Pictures/savedimage4.jpg")
+    %var Shipwreck : int := Pic.FileNew ("Game/Pictures/savedimage4.jpg")
     var answer, anykey : string (1)
     var score1, score2, score3, score4, score5 : int := 0
     loop
@@ -127,7 +132,7 @@ proc maingame
 	    score1 := score1
 	    score5 := score
 	end if
-	Pic.Draw (Shipwreck, 0, 0, picMerge)
+	%Pic.Draw (Shipwreck, 0, 0, picUnderMerge)
 	loop
 	    put "Your Score: ", score
 	    put "High Score: "

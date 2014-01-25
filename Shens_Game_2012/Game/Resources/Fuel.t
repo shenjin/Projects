@@ -1,6 +1,6 @@
 %Fuel
 for f : 1 .. 3
-    Fuely (f) := Fuely (f) - 3
+    Fuely (f) := Fuely (f) - 2
     if Fuely (f) < 0 then
 	Fuely (f) := maxy
 	Fuelx (f) := Rand.Int (0, maxx)
@@ -26,31 +26,31 @@ for f : 1 .. 3
 	    if Bar + 175 * 12 div 10 > maxx - 10 then
 		Bar := maxx - 10
 	    else
-		Bar := Bar + 190
+		Bar := Bar + 220
 	    end if
 	elsif score > 4000 then
 	    if Bar + 175 * 12 div 10 > maxx - 10 then
 		Bar := maxx - 10
 	    else
-		Bar := Bar + 200
+		Bar := Bar + 240
 	    end if
 	elsif score > 6000 then
 	    if Bar + 175 * 12 div 10 > maxx - 10 then
 		Bar := maxx - 10
 	    else
-		Bar := Bar + 210
+		Bar := Bar + 260
 	    end if
 	elsif score > 8000 then
 	    if Bar + 175 * 12 div 10 > maxx - 10 then
 		Bar := maxx - 10
 	    else
-		Bar := Bar + 220
+		Bar := Bar + 280
 	    end if
 	else
-	    if Bar + 175 > maxx - 10 then
+	    if Bar + 200 > maxx - 10 then
 		Bar := maxx - 10
 	    else
-		Bar := Bar + 175
+		Bar := Bar + 200
 	    end if
 	    Draw.FillOval (x1, y1, 10, 10, green)
 	end if

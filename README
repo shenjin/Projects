@@ -8,4 +8,8 @@ This second file “My-schedule.rkt” will give your schedule and information t
 
 01/24/14-
 
-Added another file, “FoodForThought.rkt” which is a work in progress,but essentially produces the foods that the University of Waterloo is serving this week in an order of increasing content, such as fat, calories, fat percentage, etc. This aims at helping people choose the right food and hopefully can make people aware of what they are eating.
+Added another file, “FoodForThought.rkt” which is a work in progress,but essentially produces the foods that the University of Waterloo is serving this week in an order of increasing content, such as fat, calories, fat percentage, etc. This aims at helping people choose the right food and hopefully can make people aware of what they are eating. Like “My-schedule.rkt”, it also relies on “uw-api.rkt”.
+
+01/25/14-
+
+Today I managed to recover an old project from 2012. I’ve uploaded the files “Shens_Game_2012” as well as “Turing_4.1.1” to run the game. Feel free to play the game!

@@ -5,7 +5,7 @@ if Spaceshipx < 0 then
 end if
 picID2 := Pic.FileNew ("Game/Pictures/Spaceship1.gif")
 Pic.Draw (picID2, Spaceshipx - 55, Spaceshipy - 30, picMerge)
-Pic.Free (picID2)
+
 %Spaceship bullets
 for b : 1 .. 5
     bullety (b) := bullety (b) - (b)
@@ -27,3 +27,4 @@ for b : 1 .. 5
 	
     end if
 end for
+Pic.Free (picID2)

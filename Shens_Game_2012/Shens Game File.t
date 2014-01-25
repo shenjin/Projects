@@ -16,7 +16,6 @@ var mainscreen3 : int := Pic.FileNew ("Game/Pictures/savedimage3.jpg")
 var mainscreen2 : int := Pic.FileNew ("Game/Pictures/savedimage2.jpg")
 %intro
 proc intro
-    Music.PlayFile ("Game/sci_fi_space_door.mp3")
     cls
     maingame
 end intro
@@ -24,9 +23,9 @@ end intro
 proc created1
     View.Set ("graphics:max;max,nooffscreenonly")
     cls
-    Pic.Draw (mainscreen3, 0, 0, picMerge)
+    %Pic.Draw (mainscreen3, 0, 0, picMerge)
     put "More info here:"
-    Music.PlayFile ("Game/sci_fi_space_door.mp3")
+    %Music.PlayFile ("Game/sci_fi_space_door.mp3")
     put "Press any key to continue: " ..
     getch (temp)
     cls
@@ -36,7 +35,7 @@ proc instructions
     View.Set ("graphics:max;max,nooffscreenonly")
     cls
     put "Here are the instructions:"
-    Music.PlayFile ("Game/sci_fi_space_door.mp3")
+    %Music.PlayFile ("Game/sci_fi_space_door.mp3")
     put "Press any key to continue: " ..
     getch (temp)
     cls

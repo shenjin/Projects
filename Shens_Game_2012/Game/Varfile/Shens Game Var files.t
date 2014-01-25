@@ -45,26 +45,26 @@ for sf : 1 .. 10
     objectystarf (sf) := Rand.Int (0, maxy)
 end for
 %Asteroids1
-var objectx, objecty : array 1 .. 4 of int
-for i : 1 .. 4
+var objectx, objecty : array 1 .. 20 of int
+for i : 1 .. 20
     objectx (i) := Rand.Int (0, maxx)
     objecty (i) := Rand.Int (maxy, maxy + 1000)
 end for
 %Asteroids2
-var object2x, object2y : array 1 .. 4 of int
-for i2 : 1 .. 4
+var object2x, object2y : array 1 .. 20 of int
+for i2 : 1 .. 20
     object2x (i2) := Rand.Int (0, maxx)
     object2y (i2) := Rand.Int (maxy, maxy + 1000)
 end for
 %Asteroids3
-var object3x, object3y : array 1 .. 4 of int
-for i3 : 1 .. 4
+var object3x, object3y : array 1 .. 20 of int
+for i3 : 1 .. 20
     object3x (i3) := Rand.Int (0, maxx)
     object3y (i3) := Rand.Int (maxy, maxy + 1000)
 end for
 %Pulse fire
-var objectx2, objecty2 : array 1 .. 5 of int
-for p : 1 .. 5
+var objectx2, objecty2 : array 1 .. 20 of int
+for p : 1 .. 20
     objectx2 (p) := Rand.Int (0, maxx)
     objecty2 (p) := Rand.Int (maxy, maxy + 1000)
 end for
@@ -119,6 +119,8 @@ end for
 %Boost detection
 var boostdetection : int := 10
 %Pic ID's
-var picID, picID2, picID3, picID4, picID5 : int
-%Background of game
+var picID, picID2, picID3, picID4, picID5, picID6, picID7, picID8, picID9, picID10 : int
+%picID6 := Pic.FileNew ("Game/Pictures/Asteroid1.gif")
+%Pic.Free (picID6)
+%Counter detection
 colourback (7)

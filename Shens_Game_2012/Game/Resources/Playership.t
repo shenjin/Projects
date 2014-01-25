@@ -11,7 +11,7 @@ elsif chars (chr (32)) then
     picID := Pic.FileNew ("Game/Pictures/Spaceship2boost.gif")
 elsif chars ('s') or chars (KEY_DOWN_ARROW) then
     picID := Pic.FileNew ("Game/Pictures/Spaceship2down.gif")
-elsif chars (chr (180)) then
+elsif chars (chr (99)) then
     picID := Pic.FileNew ("Game/Pictures/Spaceship2shift.gif")
 else
     picID := Pic.FileNew ("Game/Pictures/Spaceship2.gif")
