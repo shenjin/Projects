@@ -1,15 +1,21 @@
 Hey, this is where I will be adding a bunch of projects that I have worked on in the past as well as ones that I am currently working on.
 
-01/23/14-
 
-Started documenting date!
-Added two new files, one of which is “uw-api.rkt”, which is required for the other file to work.
-This second file “My-schedule.rkt” will give your schedule and information to your waterloo courses for the term. An example was given in the file already with my schedule.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-01/24/14-
 
-Added another file, “FoodForThought.rkt” which is a work in progress,but essentially produces the foods that the University of Waterloo is serving this week in an order of increasing content, such as fat, calories, fat percentage, etc. This aims at helping people choose the right food and hopefully can make people aware of what they are eating. Like “My-schedule.rkt”, it also relies on “uw-api.rkt”.
+IMPORTANT:
 
-01/25/14-
+To play my Turing game, you must use the “turing.exe” found within the Turing4.1.1 folder.
+Make sure to open the turing file found in “Shen’s_Space_Game_2012” and to run the program!
 
-Today I managed to recover an old project from 2012. I’ve uploaded the files “Shens_Game_2012” as well as “Turing_4.1.1” to run the game. Feel free to play the game!
+Have fun!
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Scheme projects are located within the scheme folder
+
+AutoCAD basement drawing is in the “Other_Projects” folder
+
+Projects in progress are located within the in progress folder

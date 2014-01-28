@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import math
+
+class base:
+    def __init__(self):
+        self.string = "Calculator"
+        print (self.string)
+        self.operator = input ("What would you like to do?\n1.Addition\n2.Subtraction\n3.Mutiplication\n4.Division\n")
+        self.first= input("Number1: ")
+        self.second = input("Number2: ")
+        if self.operator == 1:
+            print (self.first + self.second)
+        if self.operator == 2:
+            print (self.first - self.second)
+        if self.operator == 3:
+            print (self.first * self.second)
+        if self.operator == 4:
+            print (self.first / self.second)
+
+
+
+if __name__ == ("__main__"):
+    root = base()
+ 
