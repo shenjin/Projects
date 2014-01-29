@@ -95,6 +95,11 @@ proc regame
     score := 0
 end regame
 
+%Do nothing when button is pressed
+proc togglenull2
+    score := 1
+end togglenull2
+
 %Maingame loop
 proc maingame
     score := 0
@@ -108,8 +113,9 @@ proc maingame
 	    end if
 	    View.Set ("screen:max;max,nooffscreenonly")
 	    Pic.Draw (Shipwreck, 0, 0, picMerge)
-	    var yes : int := GUI.CreateButton (maxx div 2 - 75 - 38, maxy div 4 - 80, 76, " Yes ", regame)
-	    var no : int := GUI.CreateButton (maxx div 2 + 75 - 38, maxy div 4 - 80, 76, " No  ", endgame)
+	    var continue : int := GUI.CreateButton (maxx div 2 - 75, maxy div 4 * 2 - 80, 150, " Continue? ", togglenull2)
+	    var yes : int := GUI.CreateButton (maxx div 2 - 75, maxy div 4 + 20, 150, " Yes ", regame)
+	    var no : int := GUI.CreateButton (maxx div 2 - 75, maxy div 4 - 20, 150, " No  ", endgame)
 	    %Condition for exit
 	    if m2 = -1 then
 		exit
