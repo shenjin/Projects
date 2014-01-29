@@ -27,8 +27,8 @@ var Fuelgaguex : int := 10
 var Fuelgaguey : int := maxy - 39
 var Bar : int := maxx - 10
 %Fuel
-var Fuelx, Fuely : array 1 .. 3 of int
-for f : 1 .. 3
+var Fuelx, Fuely : array 1 .. 10 of int
+for f : 1 .. 10
     Fuelx (f) := Rand.Int (0, maxx)
     Fuely (f) := Rand.Int (0, maxy)
 end for
@@ -77,7 +77,7 @@ end for
 %Spaceship
 var Spaceshipx, Spaceshipy : int
 Spaceshipx := maxx + 55
-Spaceshipy := Rand.Int (200, maxy)
+Spaceshipy := Rand.Int (maxy div 2, maxy div 4 * 3)
 %Bullets
 var bulletx, bullety : array 1 .. 5 of int
 for b : 1 .. 5
@@ -87,7 +87,7 @@ end for
 %Spaceship2
 var Secondspaceshipx, Secondspaceshipy : int
 Secondspaceshipx := 0 - 55
-Secondspaceshipy := Rand.Int (200, maxy)
+Secondspaceshipy := Rand.Int (maxy div 2, maxy div 4 * 3)
 %Bullets2
 var bulletx2, bullety2 : array 1 .. 5 of int
 for b2 : 1 .. 5

@@ -1,5 +1,5 @@
 %Fuel
-for f : 1 .. 3
+for f : 1 .. 5
     Fuely (f) := Fuely (f) - 2
     if Fuely (f) < 0 then
 	Fuely (f) := maxy

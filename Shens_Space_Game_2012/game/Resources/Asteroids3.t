@@ -1,6 +1,6 @@
 %Asteroids3
 picID8 := Pic.FileNew ("Game/Pictures/Asteroid3.gif")
-for i3 : 1 .. 6
+for i3 : 1 .. 4
     if i3 > 4 then
 	object3y (i3) := object3y (i3) - 4
     elsif i3 > 2 then
