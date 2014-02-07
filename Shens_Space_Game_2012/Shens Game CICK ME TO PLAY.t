@@ -3,7 +3,7 @@ import GUI
 
 %Placement for game title and author
 var temp : string (1)
-var font := Font.New ("times New Roman:20")
+var font := Font.New ("Times New Roman:20")
 var font2 := Font.New ("Impact:30")
 var text : string := "SPACE INVASION"
 var text2 : string := "By: Shen Jin"
@@ -34,6 +34,7 @@ var S2L : int := Pic.FileNew ("Game/Pictures/Spaceship2left.gif")
 var S2R : int := Pic.FileNew ("Game/Pictures/Spaceship2right.gif")
 var S2S : int := Pic.FileNew ("Game/Pictures/Spaceship2shift.gif")
 var S2U : int := Pic.FileNew ("Game/Pictures/Spaceship2up.gif")
+
 
 include "Game/Shens Game.t"
 include "Game/Procfile.t"

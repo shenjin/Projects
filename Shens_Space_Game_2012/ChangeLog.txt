@@ -1,0 +1,6 @@
+-Implemented adaptive fuel (as you progress in the game, the amount of gas given for each fuel collected is also increased)
+	-Thinking of increasing actual amount of fuel with a floor(ln()) function rather than increasing the value of fuel.
+-Polished up spaceshipboss, and spaceshipminiboss behaviour (smoother transitions)
+-Made background stars more realistic, adds sense of depth
+-Fixed menuscreen vs continuescreen bug
+-Minor performance improvements

@@ -3,21 +3,24 @@ var score : int := 0
 var m2 : int := 1
 var score1, score2, score3, score4, score5 : int := 0
 var Shipwreck : int := Pic.FileNew ("Game/Pictures/savedimage4.jpg")
-var counter3, score33 :=0
+var GameCounter, GameScore, Gas: int :=0
 
 proc game 
-    score33 := 0
-    counter3 := 0
+    GameScore := 0
+    GameCounter := 0
+    Gas:= 0
     include "Varfile/Shens Game Var files.t"
     
     loop
 	%Main counter
-	counter3 := counter3 + 1
+	GameCounter := GameCounter + 1
 	%Score
 	locate (5, 2)
 	color (white)
-	score33 := score33 + 2
-	put "Score: ", score33
+	GameScore := GameScore + 2
+	put "Score: ", GameScore
+	%Gas amount
+	Gas := floor(ln(GameScore)) * 5 + 200
 	%Keycontrols
 	include "Resources/Keycontrols.t"
 	%Movement
@@ -35,22 +38,22 @@ proc game
 	%Asteroids3
 	include "Resources/Asteroids3.t"
 	%Bigasteroids
-	if counter3 >= 750 then
+	if GameCounter >= 750 then
 	    include "Resources/Bigasteroid.t"
 	end if
 	%Missile
-	if counter3 >= 1000 then
+	if GameCounter >= 1000 then
 	    include "Resources/Missile.t"
 	end if
-	if counter3 >= 1500 then
+	if GameCounter >= 1500 then
 	    %Spaceship1
 	    include "Resources/Spaceship1.t"
 	end if
-	if counter3 >= 1750 then
+	if GameCounter >= 1750 then
 	    %Spaceship2
 	    include "Resources/Spaceship2.t"
 	end if
-	if counter3 >= 1900 then
+	if GameCounter >= 1900 then
 	    %Spaceshipboss
 	    include "Resources/SpaceshipBoss.t"
 	end if
@@ -66,28 +69,28 @@ proc game
 	cls
 
     end loop
-    if score33 > score1 then
+    if GameScore > score1 then
 	score5 := score4
 	score4 := score3
 	score3 := score2
 	score2 := score1
-	score1 := score33
-    elsif score33 > score2 then
+	score1 := GameScore
+    elsif GameScore > score2 then
 	score5 := score4
 	score4 := score3
 	score3 := score2
-	score2 := score33
-    elsif score33 > score3 then
+	score2 := GameScore
+    elsif GameScore > score3 then
 	score5 := score4
 	score4 := score3
-	score3 := score33
-    elsif score33 > score4 then
+	score3 := GameScore
+    elsif GameScore > score4 then
 	score5 := score4
-	score4 := score33
-    elsif score33 > score5 then
-	score5 := score33
+	score4 := GameScore
+    elsif GameScore > score5 then
+	score5 := GameScore
     end if
-    counter3 := 1
+    GameCounter := 1
     m2 := 1
 end game
 
@@ -98,12 +101,12 @@ end endgame
 
 %Toggle replay game
 proc regame
-    counter3 := 0
+    GameCounter := 0
 end regame
 
 %Do nothing when button is pressed
 proc togglenull2
-    counter3 := 1
+    GameCounter := 1
 end togglenull2
 
 %Maingame loop
@@ -112,11 +115,11 @@ proc maingame
     loop
 	m2 := 1
 	loop
-	    if counter3 = 0 then
+	    if GameCounter = 0 then
 		cls
 		game
 	    end if
-	    if counter3 = 1 then
+	    if GameCounter = 1 then
 	    View.Set ("screen:max;max,nooffscreenonly")
 	    Pic.Draw (Shipwreck, 0, 0, picMerge)
 	    var continue : int := GUI.CreateButton (maxx div 2 - 75, maxy div 4 * 2 - 80, 150, " Continue? ", togglenull2)
@@ -131,8 +134,8 @@ proc maingame
 	    end if
 	end loop
 	%Condition for exit
-	score33 := 0
-	counter3 := 0
+	GameScore := 0
+	GameCounter := 0
 	if m2 = -1 then
 	    exit
 	end if

@@ -30,7 +30,13 @@ var Bar : int := maxx - 10
 var Fuelx, Fuely : array 1 .. 10 of int
 for f : 1 .. 10
     Fuelx (f) := Rand.Int (0, maxx)
-    Fuely (f) := Rand.Int (0, maxy)
+    Fuely (f) := Rand.Int (maxy, maxy * 2)
+end for
+%Fuel
+var Shieldx, Shieldy : array 1 .. 10 of int
+for shield : 1 .. 10
+    Shieldx (shield) := Rand.Int (0, maxx)
+    Shieldy (shield) := Rand.Int (maxy, maxy * 2)
 end for
 %stars
 var objectxstar, objectystar : array 1 .. 100 of int
@@ -48,31 +54,31 @@ end for
 var objectx, objecty : array 1 .. 20 of int
 for i : 1 .. 20
     objectx (i) := Rand.Int (0, maxx)
-    objecty (i) := Rand.Int (maxy, maxy + 1000)
+    objecty (i) := Rand.Int (maxy, maxy * 2)
 end for
 %Asteroids2
 var object2x, object2y : array 1 .. 20 of int
 for i2 : 1 .. 20
     object2x (i2) := Rand.Int (0, maxx)
-    object2y (i2) := Rand.Int (maxy, maxy + 1000)
+    object2y (i2) := Rand.Int (maxy, maxy * 2) 
 end for
 %Asteroids3
 var object3x, object3y : array 1 .. 20 of int
 for i3 : 1 .. 20
     object3x (i3) := Rand.Int (0, maxx)
-    object3y (i3) := Rand.Int (maxy, maxy + 1000)
+    object3y (i3) := Rand.Int (maxy, maxy * 2)
 end for
 %Pulse fire
 var objectx2, objecty2 : array 1 .. 20 of int
 for p : 1 .. 20
     objectx2 (p) := Rand.Int (0, maxx)
-    objecty2 (p) := Rand.Int (maxy, maxy + 1000)
+    objecty2 (p) := Rand.Int (maxy, maxy * 2)
 end for
 %Missles
 var objectxmissle, objectymissle : array 1 .. 10 of int
 for m : 1 .. 10
     objectxmissle (m) := Rand.Int (0, maxx)
-    objectymissle (m) := Rand.Int (maxy, maxy + 1000)
+    objectymissle (m) := Rand.Int (maxy, maxy * 2)
 end for
 %Spaceship
 var Spaceshipx, Spaceshipy : int

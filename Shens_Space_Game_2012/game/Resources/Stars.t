@@ -1,6 +1,13 @@
 %Stars
 for s : 1 .. 100
-    objectystar (s) := objectystar (s) - 1
+    if s > 90 then
+	objectystar (s) := objectystar (s) - 3
+    elsif s > 70 then
+	objectystar (s) := objectystar (s) - 2
+    else
+	objectystar (s) := objectystar (s) - 1
+    end if
+    %objectystar (s) := objectystar (s) - 1
     if objectystar (s) < 0 then
 	objectystar (s) := maxy
 	objectxstar (s) := Rand.Int (0, maxx)

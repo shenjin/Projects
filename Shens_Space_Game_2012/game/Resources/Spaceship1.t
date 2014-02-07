@@ -1,7 +1,7 @@
 %Spaceship1
 Spaceshipx := Spaceshipx - 1
-if Spaceshipx < 0 then
-    Spaceshipx := maxx
+if Spaceshipx < -55 then
+    Spaceshipx := maxx + 55
 end if
 picID2 := Pic.FileNew ("Game/Pictures/Spaceship1.gif")
 Pic.Draw (picID2, Spaceshipx - 55, Spaceshipy - 30, picMerge)

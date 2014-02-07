@@ -3,11 +3,11 @@ if Spaceshipyb > 500 then
     Spaceshipyb := Spaceshipyb - 1
 else
     Spaceshipxb := Spaceshipxb + m2
-    if Spaceshipxb = maxx - 125 then
-	m2 := -1
+    if Spaceshipxb >= maxx + 125 then
+	m2 := -2
     end if
-    if Spaceshipxb = 125 then
-	m2 := 1
+    if Spaceshipxb <= -125 then
+	m2 := 2
     end if
 end if
 %Spaceshipboss bullets
@@ -55,7 +55,7 @@ end for
 %Blastright
 picID4 := Pic.FileNew ("Game/Pictures/Blastright.gif")
 for br : 1 .. 10
-    Blastrighty (br) := Blastrighty (br) - (br) - 1
+    Blastrighty (br) := Blastrighty (br) - (br) - 2
     if Blastrighty (br) <= 0 then
 	Blastrighty (br) := Spaceshipyb - 47
 	Blastrightx (br) := Spaceshipxb

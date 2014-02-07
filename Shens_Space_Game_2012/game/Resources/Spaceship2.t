@@ -1,7 +1,7 @@
 %Spaceship2
 Secondspaceshipx := Secondspaceshipx + 1
-if Secondspaceshipx > maxx then
-    Secondspaceshipx := 0
+if Secondspaceshipx > maxx + 55 then
+    Secondspaceshipx := -55
 end if
 picID3 := Pic.FileNew ("Game/Pictures/Spaceship1.gif")
 Pic.Draw (picID3, Secondspaceshipx - 55, Secondspaceshipy - 30, picMerge)
