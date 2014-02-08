@@ -14,7 +14,7 @@ for p : 1 .. 4
     elsif xv < 0 and objectx2 (p) > x1 + 10 then
 	objectx2 (p) := objectx2 (p) - Rand.Int (1, 2)
     end if
-    if objecty2 (p) < 0 then
+    if objecty2 (p) < -40 then
 	objecty2 (p) := maxy
 	objectx2 (p) := Rand.Int (0, maxx)
     end if

@@ -1,5 +1,5 @@
 %Spaceshipboss
-if Spaceshipyb > 500 then
+if Spaceshipyb > maxy div 5 * 4 then
     Spaceshipyb := Spaceshipyb - 1
 else
     Spaceshipxb := Spaceshipxb + m2
@@ -56,7 +56,7 @@ end for
 picID4 := Pic.FileNew ("Game/Pictures/Blastright.gif")
 for br : 1 .. 10
     Blastrighty (br) := Blastrighty (br) - (br) - 2
-    if Blastrighty (br) <= 0 then
+    if Blastrighty (br) <= -108 then
 	Blastrighty (br) := Spaceshipyb - 47
 	Blastrightx (br) := Spaceshipxb
     end if
@@ -64,6 +64,7 @@ for br : 1 .. 10
     distance_between_centressbr := sqrt ((Blastrightx (br) - 9 - x1) ** 2 + (Blastrighty (br) - y1) ** 2)
     if distance_between_centressbr <= 15 + 10 then
 	Blastrighty (br) := Spaceshipyb - 47
+	Blastrightx (br) := Spaceshipxb
 	Bar2 := Bar2 - 300
 
     end if

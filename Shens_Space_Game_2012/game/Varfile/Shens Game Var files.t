@@ -1,6 +1,6 @@
 View.Set ("graphics:max;max,offscreenonly")
 var chars : array char of boolean
-var x1 : int := maxx div 2
+var x1 : int := maxx div 2 - 23
 var x2 : int := x1 + 10
 var y1 : int := 10
 var y2 : int := y1 + 10
@@ -22,6 +22,18 @@ var powerup1 : boolean
 var Healthx : int := 10
 var Healthy : int := maxy - 12
 var Bar2 : int := maxx - 10
+%Shield Bar
+var Shieldgaugex : int := 10
+var Shieldgaugey : int := maxy - 12
+var Bar3 : int := maxx - 10
+var Shieldx, Shieldy : array 1 .. 10 of int
+for shield : 1 .. 10
+    Shieldx (shield) := Rand.Int (0, maxx)
+    Shieldy (shield) := Rand.Int (maxy, maxy)
+end for
+%Color of health
+var Color : int := green
+var Color2 : int := black
 %Fuel Gague
 var Fuelgaguex : int := 10
 var Fuelgaguey : int := maxy - 39
@@ -31,12 +43,6 @@ var Fuelx, Fuely : array 1 .. 10 of int
 for f : 1 .. 10
     Fuelx (f) := Rand.Int (0, maxx)
     Fuely (f) := Rand.Int (maxy, maxy * 2)
-end for
-%Fuel
-var Shieldx, Shieldy : array 1 .. 10 of int
-for shield : 1 .. 10
-    Shieldx (shield) := Rand.Int (0, maxx)
-    Shieldy (shield) := Rand.Int (maxy, maxy * 2)
 end for
 %stars
 var objectxstar, objectystar : array 1 .. 100 of int

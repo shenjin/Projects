@@ -12,25 +12,19 @@ proc game
     include "Varfile/Shens Game Var files.t"
     
     loop
-	%Main counter
-	GameCounter := GameCounter + 1
 	%Score
 	locate (5, 2)
 	color (white)
 	GameScore := GameScore + 2
 	put "Score: ", GameScore
-	%Gas amount
-	Gas := floor(ln(GameScore)) * 5 + 200
-	%Keycontrols
-	include "Resources/Keycontrols.t"
-	%Movement
-	include "Resources/Movement.t"
-	%Playership
-	include "Resources/Playership.t"
-	%Fuel
-	include "Resources/Fuel.t"
 	%Stars
 	include "Resources/Stars.t"
+	%Fuel
+	include "Resources/Fuel.t"
+	%Shield
+	if GameScore >= 0 then
+	include "Resources/ShieldUp.t"
+	end if
 	%Asteroids
 	include "Resources/Asteroids1.t"
 	%Asteroids2
@@ -53,14 +47,30 @@ proc game
 	    %Spaceship2
 	    include "Resources/Spaceship2.t"
 	end if
-	if GameCounter >= 1900 then
+	if GameCounter >= 2000 then
 	    %Spaceshipboss
 	    include "Resources/SpaceshipBoss.t"
 	end if
+	%Keycontrols
+	include "Resources/Keycontrols.t"
+	%Movement
+	include "Resources/Movement.t"
+	%Playership
+	include "Resources/Playership.t"
+	%Main counter
+	GameCounter := GameCounter + 1
+	%Gas amount
+	Gas := floor(ln(GameScore)) * 5 + 200
 	%UI Bars
 	include "Resources/Bars.t"
+	%No Shield
+	if Bar2 <= 10 and Color = yellow then
+	    Bar2 := maxx - 10
+	    Color := green
+	    Color2 := black
+	end if
 	%Exit statement
-	if Bar2 <= 10 or Bar <= 10 then
+	if (Bar2 <= 10 and Color = green) or Bar <= 10 then
 	    exit
 	end if
 	%Refresh

@@ -10,5 +10,6 @@ Draw.FillBox (Fuelgaguex, Fuelgaguey, Bar, maxy - 54, red)
 %    Bar2 := Bar2
 %end if
 Draw.FillBox (Healthx - 2, Healthy + 2, maxx - 8, maxy - 29, grey)
-Draw.FillBox (Healthx, Healthy, maxx - 10, maxy - 27, black)
-Draw.FillBox (Healthx, Healthy, Bar2, maxy - 27, green)
+Draw.FillBox (Healthx, Healthy, maxx - 10, maxy - 27, Color2)
+Draw.FillBox (Healthx, Healthy, Bar2, maxy - 27, Color)
+

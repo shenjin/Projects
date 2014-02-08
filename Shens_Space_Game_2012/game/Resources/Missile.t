@@ -3,7 +3,7 @@ picID10 := Pic.FileNew ("Game/Pictures/Missile.gif")
 locate (1, 1)
 for m : 1 .. 5
     objectymissle (m) := objectymissle (m) - Rand.Int (8, 9)
-    if objectymissle (m) < 0 then
+    if objectymissle (m) < -80 then
 	objectymissle (m) := maxy
 	objectxmissle (m) := Rand.Int (0, maxx)
     end if
