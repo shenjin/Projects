@@ -1,4 +1,4 @@
-********************************************************************************************************************************************
+******************************************************************************************
 
 Tested mainly on:
 
@@ -9,11 +9,11 @@ Tested mainly on:
 		-Running Windows 8 (Parallels)
 
 Note, my turing game relies on turing, which is only avaliable on windows operating systems!
-********************************************************************************************************************************************
+******************************************************************************************
 
 Change Log:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 2/9/14
 -Changed playership, bigasteroid, enenmyship, and enemyshipboss behaviour
@@ -25,7 +25,7 @@ Change Log:
 	-Reorganized all directories
 -Overall performance inprovements (alot smoother than before)
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 2/8/14
 -Fixed layer problem (ship appearing below stars)
@@ -35,7 +35,7 @@ Change Log:
 Will be making major overhaul of the code soon!
 -Plan to abstract many repetitive lines of code.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 2/7/14
 -Implemented adaptive fuel (as you progress in the game, the amount of gas given for each fuel collected is also increased)
 	-Thinking of increasing actual amount of fuel with a floor(ln()) function rather than increasing the value of fuel.
@@ -44,8 +44,7 @@ Will be making major overhaul of the code soon!
 -Fixed menuscreen vs continuescreen bug
 -Minor performance improvements
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Things to add to game:
 
 Powerups: slow-speed, increase-speed, etc
