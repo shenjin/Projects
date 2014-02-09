@@ -1,3 +1,30 @@
+********************************************************************************************************************************************
+
+Tested mainly on:
+
+	MacbookAir 11 inch (2011 model core i5 SandyBridge)
+		-720p moniter
+		-1080p moniter
+		-Standard keyboard
+		-Running Windows 8 (Parallels)
+
+Note, my turing game relies on turing, which is only avaliable on windows operating systems!
+********************************************************************************************************************************************
+
+Change Log:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2/9/14
+-Changed playership, bigasteroid, enenmyship, and enemyshipboss behaviour
+-Introduced dynamic background (stars moving at different rates)
+-Fixed enemyshipboss x-coordinate movement
+-Abstracted many repetitive lines of code
+-Got rid of unecessary files
+	-Game is now 4MB, as opposed to 8MB from before
+	-Reorganized all directories
+-Overall performance inprovements (alot smoother than before)
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 2/8/14
@@ -23,8 +50,4 @@ Things to add to game:
 
 Powerups: slow-speed, increase-speed, etc
 
-Dynamic background: stars moving at different rates
-
 Option to choose difficulty
-
-Fix boss turn x coordinate movement
