@@ -2,7 +2,7 @@
 for s : 1 .. 100
     if s > 94 then
 	objectystar (s) := objectystar (s) - 1
-	Draw.FillOval (objectxstar (s), objectystar (s), 1, 2, Rand.Int (16, 25))
+	Draw.FillOval (objectxstar (s), objectystar (s), 1, 2, Rand.Int (16, 31))
     elsif s > 88 then
 	objectystar (s) := objectystar (s) - 1
 	Draw.FillOval (objectxstar (s), objectystar (s), 1, 1, Rand.Int (16, 31))

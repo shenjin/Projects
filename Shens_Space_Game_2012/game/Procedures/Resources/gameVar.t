@@ -6,6 +6,8 @@
     var xv : real := 0
     var yv : real := 0
     var g : real := 1
+    %Boost detection
+    var boostdetection : int := 10
     %var realnum : int := 1 div 100
     var ground : boolean := true
     
@@ -115,9 +117,6 @@
 	Blastrightx (br) := Spaceshipxb
 	Blastrighty (br) := Spaceshipyb
     end for
-
-    %Boost detection
-    var boostdetection : int := 10
 
     %Pic ID's
     var picID, picID2, picID3, picID4, picID5, picID6, picID7, picID8, picID9, picID10 : int

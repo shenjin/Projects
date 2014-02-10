@@ -13,13 +13,14 @@ var score : int := 0
 var m2 : int := 1
 var score1, score2, score3, score4, score5 : int := 0
 var Shipwreck : int := Pic.FileNew ("Game/Pictures/savedimage4.jpg")
-var GameScore, Gas : int := 0
+var GameScore, Gas, GameCounter : int := 0
 var distance_between_centers : real := 0
 var Bar : int := maxx - 10
 var Bar2 : int := maxx - 10
 var Color : int := green
 var Color2 : int := black
 var a : int := 1
+
 %Images used in game
 var mainscreen : int := Pic.FileNew ("Game/Pictures/savedimage.jpg")
 var highscore : int := Pic.FileNew ("Game/Pictures/highscore.jpg")

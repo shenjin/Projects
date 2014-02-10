@@ -7,10 +7,10 @@ if chars ('s') or chars (KEY_DOWN_ARROW) and y2 < maxy and ground = false then
     yv := yv - 0.6
 end if
 if (chars (chr (32)) or chars ('w') or chars (KEY_UP_ARROW)) and y2 <= maxy - 10 then
-    if chars (chr (32)) then
-	boostdetection := boostdetection + 5 div 10
-    end if
-    yv := 6
+%    if chars (chr (32)) then
+%        boostdetection := boostdetection + 5 div 10
+%    end if
+    yv := 8
     Bar := Bar - 2
 end if
 if chars ('a') or chars (KEY_LEFT_ARROW) and x1 > 0 then
@@ -25,6 +25,6 @@ elsif chars ('c') then
 	Bar := Bar - 2
     end if
 end if
-if not chars (chr (32)) then
-    boostdetection := 10
-end if
+%if not chars (chr (32)) then
+%    boostdetection := 10
+%end if
