@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<WebEditorProject>
+    <!---->
+    <ProjectInformation>
+        <ProjectName>Website2</ProjectName>
+        <ProjectVersion>2.0</ProjectVersion>
+        <ServerInfo ServerID="-1"></ServerInfo>
+        <S-DriveURL></S-DriveURL>
+    </ProjectInformation>
+    <!---->
+    <ProjectTreeFirstLevel>
+        <Node Type="5" LinkName="">./jquery-1.11.0.min.js</Node>
+        <Node Type="5" LinkName="">./shen.html</Node>
+        <Node Type="5" LinkName="">./source.js</Node>
+        <Node Type="5" LinkName="">./stylesheet.css</Node>
+    </ProjectTreeFirstLevel>
+    <!---->
+    <ShowedFiles>
+        <ShowedFileEditor1 FirstVisibleLine="15" CursorPosition="509">./shen.html</ShowedFileEditor1>
+        <ShowedFileEditor2 FirstVisibleLine="0" CursorPosition="384">./source.js</ShowedFileEditor2>
+    </ShowedFiles>
+    <!---->
+</WebEditorProject>

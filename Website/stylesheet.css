@@ -1,0 +1,57 @@
+body {
+	background-color: #c0bdb0;
+	font-family: "Trebuchet MS";
+}
+
+div {
+	position: absolute;
+	top: 50%;
+	opacity: 0;
+}
+
+.title{
+	opacity: 1;
+}
+
+.title a {
+	color: #332e28;
+	font-size: 100px;
+	font-weight: 100;
+}
+
+.option a{
+	color: #332e28;
+}
+
+#last a {
+	color: #730e07;
+}
+
+a{
+	text-decoration: none;
+	color: #332e28;
+}
+
+#first{
+	left: 33%;
+	top: -5%;
+	margin-top: -90px;
+}
+
+#last {
+	left: -15%;
+}
+
+#LinkedIn{
+	left: 66%;
+	margin-top: 40px;
+}
+
+#GitHub{
+	left: 66%;
+}
+
+#Resume{
+	left: 66%;
+	margin-top: -40px;
+}
