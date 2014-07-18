@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;data&apos; to &apos;assets&apos;&#x0A;- Original project: &apos;DoubleFlap-android&apos;&#x0A;- Destination element: &apos;assets&apos;&#x0A;- Original element: &apos;data&apos;&#x0A;- Update references to refactored element" description="Move folder" element1="assets/data" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1405635473969" target="/DoubleFlap-desktop/assets" units="0" version="1.0"/>
+</session>

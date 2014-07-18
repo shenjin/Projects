@@ -9,15 +9,16 @@
     </ProjectInformation>
     <!---->
     <ProjectTreeFirstLevel>
+        <Node Type="2" LinkName="">./pictures/</Node>
         <Node Type="5" LinkName="">./jquery-1.11.0.min.js</Node>
-        <Node Type="5" LinkName="">./shen.html</Node>
         <Node Type="5" LinkName="">./source.js</Node>
         <Node Type="5" LinkName="">./stylesheet.css</Node>
+        <Node Type="5" LinkName="">./index.html</Node>
     </ProjectTreeFirstLevel>
     <!---->
     <ShowedFiles>
-        <ShowedFileEditor1 FirstVisibleLine="15" CursorPosition="509">./shen.html</ShowedFileEditor1>
-        <ShowedFileEditor2 FirstVisibleLine="0" CursorPosition="384">./source.js</ShowedFileEditor2>
+        <ShowedFileEditor1 FirstVisibleLine="60" CursorPosition="1667">./index.html</ShowedFileEditor1>
+        <ShowedFileEditor2 FirstVisibleLine="120" CursorPosition="910">./stylesheet.css</ShowedFileEditor2>
     </ShowedFiles>
     <!---->
 </WebEditorProject>

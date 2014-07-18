@@ -1,0 +1,9 @@
+Things to add to game:
+
+Powerups, shields, slow-speed, increase-speed, etc
+
+Dynamic background: stars moving at different rates
+
+Option to choose difficulty
+
+Fix boss turn x coordinate movement

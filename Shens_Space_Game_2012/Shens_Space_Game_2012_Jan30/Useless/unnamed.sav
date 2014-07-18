@@ -1,0 +1,11 @@
+var password : string (2)
+var counter: int := 0
+put "Please enter a 2 letter password: " ..
+get password
+const master := password
+
+cls
+loop
+put "Please enter your password now: "..
+exit when password = master
+counter 

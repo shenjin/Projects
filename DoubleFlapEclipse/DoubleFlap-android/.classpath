@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/DoubleFlap"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK/DoubleFlap"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/DoubleFlap/libs/gdx.jar" sourcepath="/DoubleFlap/libs/gdx-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/DoubleFlap/libs/tween-engine-api-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/DoubleFlap/libs/tween-engine-api.jar" sourcepath="/DoubleFlap/libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="lib" path="/DoubleFlap/libs/gdx-sources.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

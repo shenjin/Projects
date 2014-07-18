@@ -1,0 +1,52 @@
+body {
+	background-color: #c0bdb0;
+	font-family: "Trebuchet MS";
+}
+
+
+.image {
+	position: absolute;
+	top: 50%;
+	opacity: 0;
+	height: 110px;
+	width: 110px;
+	background-color: #730e07;
+}
+
+.title{
+	opacity: 1;
+}
+
+.title a {
+	color: #332e28;
+	font-size: 100px;
+	font-weight: 100;
+}
+
+
+a{
+	text-decoration: none;
+	color: #332e28;
+}
+
+img{
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+#img1{
+	left: 33%;
+	margin-left: -55px;
+}
+
+#img2{
+	left: 66%;
+	margin-left: -55px;
+}
+
+p{
+	opacity: 0;
+	text-align: center;
+}
+
+

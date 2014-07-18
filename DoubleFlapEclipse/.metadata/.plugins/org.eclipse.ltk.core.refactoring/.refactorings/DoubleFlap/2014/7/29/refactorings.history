@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.moustacheapps.gameobjects.backGround&apos; to &apos;BackGround&apos;&#x0A;- Original project: &apos;DoubleFlap&apos;&#x0A;- Original element: &apos;com.moustacheapps.gameobjects.backGround&apos;&#x0A;- Renamed element: &apos;com.moustacheapps.gameobjects.BackGround&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;backGround&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.moustacheapps.gameobjects{backGround.java[backGround" matchStrategy="1" name="BackGround" qualified="false" references="true" similarDeclarations="false" stamp="1405459067732" textual="false" version="1.0"/>
+</session>

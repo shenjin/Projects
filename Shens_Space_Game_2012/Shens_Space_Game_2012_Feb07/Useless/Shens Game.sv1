@@ -1,0 +1,432 @@
+var chars : array char of boolean
+var win := Window.Open ("graphics:max;max,offscreenonly")
+var x1 : int := 10
+var x2 : int := x1 + 10
+var y1 : int := 10
+var y2 : int := y1 + 10
+var xv : real := 0
+var yv : real := 0
+var g : real := 1
+var realnum : int := 1 div 100
+var ground : boolean := true
+var counter, counter2 : real := 1
+var distance_between_centresf, distance_between_centres, distance_between_centresm, distance_between_centresp, distance_between_centressb : real
+var objectradiusx, objectradiusy : int
+var mainscreen : int := Pic.FileNew ("stars.jpg")
+var score : int := 0
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%Health Bar
+
+var Healthx : int := 10
+var Healthy : int := maxy - 10
+var Bar2 : int := maxx
+
+%Fuel Gague
+
+var Fuelgaguex : int := 10
+var Fuelgaguey : int := maxy - 35
+var Bar : int := maxx div 2
+
+%Fuel
+var Fuelx, Fuely : array 1 .. 3 of int
+for f : 1 .. 3
+    Fuelx (f) := Rand.Int (0, maxx)
+    Fuely (f) := Rand.Int (0, maxy)
+end for
+
+%stars
+var objectxstar, objectystar : array 1 .. 100 of int
+for s : 1 .. 100
+    objectxstar (s) := Rand.Int (0, maxx)
+    objectystar (s) := Rand.Int (0, maxy)
+end for
+
+%Asteroids1
+var objectx, objecty : array 1 .. 4 of int
+for i : 1 .. 4
+    objectx (i) := Rand.Int (0, maxx)
+    objecty (i) := Rand.Int (maxy, maxy + 1000)
+end for
+
+%Asteroids2
+var object2x, object2y : array 1 .. 4 of int
+for i2 : 1 .. 4
+    object2x (i2) := Rand.Int (0, maxx)
+    object2y (i2) := Rand.Int (maxy, maxy + 1000)
+end for
+
+%Asteroids3
+var object3x, object3y : array 1 .. 4 of int
+for i3 : 1 .. 4
+    object3x (i3) := Rand.Int (0, maxx)
+    object3y (i3) := Rand.Int (maxy, maxy + 1000)
+end for
+
+%Pulse fire
+var objectx2, objecty2 : array 1 .. 5 of int
+for p : 1 .. 5
+    objectx2 (p) := Rand.Int (0, maxx)
+    objecty2 (p) := Rand.Int (maxy, maxy + 1000)
+end for
+
+%Missles
+var objectxmissle, objectymissle : array 1 .. 10 of int
+for m : 1 .. 10
+    objectxmissle (m) := Rand.Int (0, maxx)
+    objectymissle (m) := Rand.Int (maxy, maxy + 1000)
+end for
+
+%Spaceship
+var Spaceshipx, Spaceshipy : int
+
+Spaceshipx := Rand.Int (0, maxx)
+Spaceshipy := Rand.Int (200, maxy)
+
+%Bullets
+var bulletx, bullety : array 1 .. 5 of int
+for b : 1 .. 5
+    bulletx (b) := Spaceshipx
+    bullety (b) := Spaceshipy
+end for
+
+%Background of game
+colourback (7)
+
+
+
+loop
+
+
+    %Main counter
+    counter2 := counter2 + 1
+
+    %Mouse controls
+    Input.KeyDown (chars)
+
+    if chars ('w') and y2 < maxy and ground = true then
+	yv += 8
+    end if
+    if chars ('a') and x1 > 0 then
+	xv -= 1
+    elsif chars ('d') and x2 < maxx then
+	xv += 1
+    elsif chars (KEY_ESC) then
+	exit
+    elsif chars (chr (180)) then
+	Bar := Bar - 1
+	if Bar2 < maxx then
+	    Bar2 := Bar2 + 1
+	end if
+    end if
+    exit when Bar2 <= 10
+    %exit when Bar <= 10
+
+
+    if y1 > 10 then
+	yv -= g
+    elsif y1 < 10 then
+	yv := 0
+	y1 := 10
+    end if
+
+    if xv > 0 then
+	xv -= 0.5
+    elsif xv < 0 then
+	xv += 0.5
+    end if
+
+    if x1 < 0 then
+	x1 := 0
+	xv := 0
+    elsif x2 > maxx then
+	x1 := maxx - 10
+	xv := 0
+    end if
+
+    if y2 > maxy then
+	y1 := maxy - 10
+	yv := 0
+    end if
+
+    if y1 = 10 then
+	ground := true
+    else
+	ground := false
+    end if
+
+    x1 := x1 + round (xv)
+    y1 := y1 + round (yv)
+    x2 := x1 + 10
+    y2 := y1 + 10
+    %Player
+    Draw.FillOval (x1, y1, 10, 10, blue)
+
+    %Fuel Gague
+    Bar := Bar - 1
+    Draw.FillBox (Fuelgaguex, Fuelgaguey, Bar, 653, red)
+
+
+    %Health Bar
+    if Bar2 < maxx then
+	Bar2 := Bar2 + 1
+    end if
+    Draw.FillBox (Healthx, Healthy, Bar2, 680, 2)
+
+    locate (10, 1)
+    color (white)
+    score := score + 2
+    put "Score: ", score
+
+    %Fuel
+    locate (1, 1)
+    for f : 1 .. 3
+	Fuely (f) := Fuely (f) - 3
+
+	if Fuely (f) < 0 then
+	    Fuely (f) := maxy
+	    Fuelx (f) := Rand.Int (0, maxx)
+	end if
+	Draw.FillOval (Fuelx (f), Fuely (f), 6, 6, red)
+	Draw.Oval (Fuelx (f), Fuely (f), 6, 6, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) + 5, 6, 1, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) + 6, 5, 1, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) + 4, 5, 1, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) - 2, 1, 5, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) - 2, 2, 5, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) - 2, 3, 5, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) - 2, 4, 5, Rand.Int (1, 10))
+	Draw.Oval (Fuelx (f), Fuely (f) - 2, 5, 5, Rand.Int (1, 10))
+
+	distance_between_centresf := sqrt ((Fuelx (f) - x1) ** 2 + (Fuely (f) - y1) ** 2)
+
+	if distance_between_centresf <= 10 + 6 then
+	    Fuely (f) := maxy
+	    Fuelx (f) := Rand.Int (0, maxx)
+	    Draw.FillOval (x1, y1, 10, 10, green)
+
+	    if Bar >= maxx - 10 then
+		Bar := Bar + 0
+	    else
+		Bar := Bar + 170
+	    end if
+	    Draw.FillOval (x1, y1, 10, 10, green)
+	end if
+    end for
+
+    %Stars
+    locate (1, 1)
+    for s : 1 .. 100
+	objectystar (s) := objectystar (s) - 1
+
+	if objectystar (s) < 0 then
+	    objectystar (s) := maxy
+	    objectxstar (s) := Rand.Int (0, maxx)
+	end if
+	Draw.FillOval (objectxstar (s), objectystar (s), 1, 1, white)
+    end for
+
+    %Asteroids
+    %locate (1, 1)
+    for i : 1 .. 4
+	objecty (i) := objecty (i) - Rand.Int (1, 3)
+
+	if objecty (i) < 0 then
+	    objecty (i) := maxy
+	    objectx (i) := Rand.Int (0, maxx)
+	end if
+
+
+	Draw.FillOval (objectx (i), objecty (i), 8, 8, Rand.Int (135, 137))
+	Draw.FillOval (objectx (i), objecty (i), 8, 8, Rand.Int (135, 137))
+	Draw.Oval (objectx (i), objecty (i), 8, 8, black)
+	Draw.Oval (objectx (i) - 5, objecty (i), 2, 2, black)
+	Draw.Oval (objectx (i), objecty (i) - 5, 1, 2, black)
+	Draw.Oval (objectx (i) + 5, objecty (i) - 3, 1, 1, black)
+	Draw.Oval (objectx (i) + 5, objecty (i) + 2, 2, 2, black)
+	Draw.Oval (objectx (i) - 1, objecty (i) + 4, 1, 2, black)
+
+
+	distance_between_centres := sqrt ((objectx (i) - x1) ** 2 + (objecty (i) - y1) ** 2)
+	if distance_between_centres <= 10 + 8 then
+	    objecty (i) := maxy
+	    objectx (i) := Rand.Int (0, maxx)
+	    Bar2 := Bar2 - 200
+	    Draw.FillOval (x1, y1, 10, 10, red)
+	end if
+
+    end for
+
+    %Asteroids2
+    %locate (1, 1)
+    for i2 : 1 .. 4
+	object2y (i2) := object2y (i2) - Rand.Int (1, 3)
+
+	if object2y (i2) < 0 then
+	    object2y (i2) := maxy
+	    object2x (i2) := Rand.Int (0, maxx)
+	end if
+
+	Draw.FillOval (object2x (i2), object2y (i2), 8, 8, Rand.Int (135, 137))
+	Draw.Oval (object2x (i2), object2y (i2), 8, 8, black)
+	Draw.Oval (object2x (i2) - 4, object2y (i2) + 1, 2, 2, black)
+	Draw.Oval (object2x (i2) + 1, object2y (i2) - 4, 1, 2, black)
+	Draw.Oval (object2x (i2) + 4, object2y (i2) - 4, 1, 1, black)
+	Draw.Oval (object2x (i2) + 4, object2y (i2) + 3, 2, 2, black)
+	Draw.Oval (object2x (i2) - 2, object2y (i2) + 3, 1, 2, black)
+	Draw.Oval (object2x (i2) - 3, object2y (i2) - 3, 1, 1, black)
+
+
+	distance_between_centres := sqrt ((object2x (i2) - x1) ** 2 + (object2y (i2) - y1) ** 2)
+	if distance_between_centres <= 10 + 8 then
+	    object2y (i2) := maxy
+	    object2x (i2) := Rand.Int (0, maxx)
+	    Bar2 := Bar2 - 200
+	    Draw.FillOval (x1, y1, 10, 10, red)
+	end if
+
+    end for
+
+    %Asteroids3
+    %locate (1, 1)
+    for i3 : 1 .. 4
+	object3y (i3) := object3y (i3) - Rand.Int (1, 3)
+
+	if object3y (i3) < 0 then
+	    object3y (i3) := maxy
+	    object3x (i3) := Rand.Int (0, maxx)
+	end if
+
+	Draw.FillOval (object3x (i3), object3y (i3), 8, 8, Rand.Int (135, 137))
+	Draw.Oval (object3x (i3), object3y (i3), 8, 8, black)
+	Draw.Oval (object3x (i3) - 3, object3y (i3) + 2, 2, 2, black)
+	Draw.Oval (object3x (i3) + 3, object3y (i3) - 3, 1, 2, black)
+	Draw.Oval (object3x (i3) + 3, object3y (i3) - 3, 1, 1, black)
+	Draw.Oval (object3x (i3) + 5, object3y (i3) + 2, 2, 2, black)
+	Draw.Oval (object3x (i3) - 3, object3y (i3) + 2, 1, 2, black)
+	Draw.Oval (object3x (i3) - 2, object3y (i3) - 4, 1, 1, black)
+
+
+	distance_between_centres := sqrt ((object3x (i3) - x1) ** 2 + (object3y (i3) - y1) ** 2)
+	if distance_between_centres <= 10 + 8 then
+	    object3y (i3) := maxy
+	    object3x (i3) := Rand.Int (0, maxx)
+	    Bar2 := Bar2 - 200
+	    Draw.FillOval (x1, y1, 10, 10, red)
+	end if
+
+    end for
+
+    if counter2 >= 1000 then
+
+	%Pulsefires
+	locate (1, 1)
+	for p : 1 .. 5
+	    objecty2 (p) := objecty2 (p) - Rand.Int (1, 10)
+	    if objecty2 (p) < 0 then
+		objecty2 (p) := maxy
+		objectx2 (p) := Rand.Int (0, maxx)
+	    end if
+	    objectradiusx := Rand.Int (3, 13)
+	    objectradiusy := Rand.Int (3, 13)
+	    Draw.FillOval (objectx2 (p), objecty2 (p), objectradiusx, objectradiusy, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 1, 9, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 2, 8, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 3, 7, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 4, 6, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 5, 5, Rand.Int (44, 55))
+	    Draw.Oval (objectx2 (p), objecty2 (p) + 3, 3, 4, Rand.Int (44, 55))
+	    distance_between_centresp := sqrt ((objectx2 (p) - x1) ** 2 + (objecty2 (p) - y1) ** 2)
+
+
+	    if distance_between_centresp <= 10 + objectradiusy then
+		Bar2 := Bar2 - 250
+		objecty2 (p) := maxy
+		objectx2 (p) := Rand.Int (0, maxx)
+		Draw.FillOval (x1, y1, 10, 10, red)
+	    end if
+
+	end for
+    else
+    end if
+
+    if counter2 >= 2000 then
+	%Missile
+	locate (1, 1)
+	for m : 1 .. 10
+	    objectymissle (m) := objectymissle (m) - Rand.Int (8, 9)
+	    if objectymissle (m) < 0 then
+		objectymissle (m) := maxy
+		objectxmissle (m) := Rand.Int (0, maxx)
+	    end if
+	    
+
+
+	    Draw.FillOval (objectxmissle (m), objectymissle (m), 10, Rand.Int (50, 60), Rand.Int (38, 40))
+	    Draw.FillOval (objectxmissle (m), objectymissle (m), 8, Rand.Int (35, 55), Rand.Int (41, 45))
+	    Draw.FillOval (objectxmissle (m), objectymissle (m), 6, Rand.Int (15, 30), Rand.Int (50, 55))
+	    Draw.FillOval (objectxmissle (m), objectymissle (m) - 110, 10, 10, 43)
+	    Draw.FillOval (objectxmissle (m) - 2, objectymissle (m) - 110, 7, 10, 40)
+	    Draw.Oval (objectxmissle (m), objectymissle (m) - 110, 10, 10, black)
+	    Draw.FillBox (objectxmissle (m) -10, objectymissle (m) - 110, objectxmissle (m) +10, objectymissle (m), grey)
+	    Draw.FillBox (objectxmissle (m) -10, objectymissle (m) - 110, objectxmissle (m) -5, objectymissle (m), 26)
+	    Draw.FillBox (objectxmissle (m) +5, objectymissle (m) - 110, objectxmissle (m) +10, objectymissle (m), 30)
+	    Draw.Box (180, 50, 200, 160, black)
+	    distance_between_centresm := sqrt ((objectxmissle (m) - x1) ** 2 + ((objectymissle (m) - 110) - y1) ** 2)
+
+
+	    if distance_between_centresm <= 10 + 10 then
+		Bar2 := Bar2 - 200
+		objectymissle (m) := maxy
+		objectxmissle (m) := Rand.Int (0, maxx)
+		Draw.FillOval (x1, y1, 10, 10, red)
+	    end if
+	end for
+
+    end if
+
+    if counter2 >= 3000 then
+	%Spaceship
+
+	Spaceshipx := Spaceshipx - 1
+
+	if Spaceshipx < 0 then
+	    Spaceshipx := maxx
+	end if
+	Draw.FillOval (Spaceshipx, Spaceshipy, 18, 8, grey)
+	Draw.FillOval (Spaceshipx, Spaceshipy, 5, 5, 54)
+
+
+	%Spaceship bullets
+	for b : 1 .. 5
+	    bullety (b) := bullety (b) - (b)
+	    bulletx (b) := bulletx (b) + (b)
+
+	    if bullety (b) < 0 then
+		bullety (b) := Spaceshipy
+		bulletx (b) := Spaceshipx
+	    end if
+	    if bulletx (b) >= maxx then
+		bulletx (b) := 0
+	    end if
+
+	    Draw.FillOval (bulletx (b), bullety (b), 5, 5, Rand.Int (40, 42))
+	    distance_between_centressb := sqrt ((bulletx (b) - x1) ** 2 + (bullety (b) - y1) ** 2)
+	    if distance_between_centressb <= 10 + 5 then
+		Bar2 := Bar2 - 200
+		bullety (b) := Spaceshipy
+		bulletx (b) := Rand.Int (0, maxx)
+		Draw.FillOval (x1, y1, 10, 10, red)
+	    end if
+	end for
+
+
+    end if
+
+    View.Update
+    delay (10)
+    cls
+end loop

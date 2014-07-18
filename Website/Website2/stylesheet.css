@@ -1,0 +1,154 @@
+body {
+	background-color: #c0bdb0;
+	font-family: "Trebuchet MS";
+	overflow: hidden;
+}
+
+div {
+	position: absolute;
+	top: 50%;
+	opacity: 0;
+}
+
+.topic{
+	opacity: 1;
+	left: 50%;
+	top: 20%;
+}
+
+.topic p{
+	display:inline;
+}
+
+.title{
+	opacity: 1;
+}
+
+a{
+	text-decoration: none;
+	color: #332e28;
+}
+
+.title a {
+	font-size: 100px;
+	font-weight: 100;
+}
+
+.option a{
+	color: #332e28;
+}
+
+#last a {
+	color: #730e07;
+}
+
+
+#first{
+	left: 33%;
+	top: -5%;
+	margin-top: -90px;
+}
+
+#last {
+	left: -15%;
+}
+
+#Resume{
+	left: 66%;
+	margin-top: -35px;
+}
+
+#GitHub{
+	left: 66%;
+	margin-top: -5px;
+}
+
+#LinkedIn{
+	left: 66%;
+	margin-top: 25px;
+}
+
+#Projects{
+	left: 66%;
+	margin-top: 55px;
+}
+
+.image img{
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+#img1{
+	left: 33%;
+}
+
+#img2{
+	left: 66%;
+}
+
+.image {
+	position: absolute;
+	top: 166%;
+	opacity: 0.5;
+	margin-left: -55px;
+	margin-top: -55px;
+	height: 110px;
+	width: 110px;
+	background-color: #730e07;
+}
+
+.image p{
+	opacity: 0;
+	text-align: center;
+}
+
+#project{
+	left: 50%;
+	top: 133%;
+	margin-top: -90px;
+}
+
+.helper img{
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.helper {
+	position: absolute;
+	top: 25%;
+	left: 150%;
+	opacity: 1;
+	margin-top: -55px;
+	margin-left: -138px;
+	height: 147px;
+	width: 276px;
+	background-color: #730e07;
+}
+
+#imgHelpera {
+	left: 150%;
+	margin-left: -369px;
+	height: 350px;
+	width: 737px;
+}
+
+#imgHelper1 { 
+	top: calc(25% + 147px + 5px);
+} 
+#imgHelper2 { 
+	top: calc(25% + 147px + 5px);
+} 
+#imgHelper3 { 
+	top: calc(25% + 147px + 5px);
+} 
+#imgHelper4 { 
+	top: 25%;
+} 
+#imgHelper5 { 
+	top: 25%;
+} 
+#imgHelper6 { 
+	top: 25%;
+} 
+
+

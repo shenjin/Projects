@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete 5 resources" deleteContents="false" description="Delete 5 resources" element1="/DoubleFlap" element2="/DoubleFlap-android" element3="/DoubleFlap-desktop" element4="/ZombieBird-html" element5="/ZombieBird-robovm" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="5" stamp="1405634039585"/>&#x0A;<refactoring comment="Copy 0 elements to &apos;assets&apos;&#x0A;- Destination element: &apos;assets&apos;" description="Copy compilation units" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1405634186537" target="/DoubleFlap-desktop/assets" units="0" version="1.0"/>
+</session>
