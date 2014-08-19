@@ -118,7 +118,7 @@ public class AssetLoader {
 		zbLogo = new TextureRegion(texture, 0, 55, 128, 24);
 		zbLogo.flip(false, true);
 
-		mountain = new TextureRegion(texture, 0, 0, 136, 43);
+		mountain = new TextureRegion(texture, 0, 28, 136, 15);
 		mountain.flip(false, true);
 		cloud1 = new TextureRegion(texture, 136, 0, 136, 43);
 		cloud1.flip(false, true);

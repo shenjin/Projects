@@ -1,0 +1,575 @@
+package com.moustacheapps.gameobjects;
+
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
+import com.moustacheapps.dfhelpers.AssetLoader;
+import com.moustacheapps.gameworld.GameWorld;
+import com.moustacheapps.gameworld.GameWorld.GameState;
+
+public class ScrollHandler {
+
+	private Grass frontGrassL, backGrassL, frontGrassR, backGrassR;
+	private static Pipe pipe1;
+	private static Pipe pipe2;
+	private static Pipe pipe3;
+	private static Pipe pipeA;
+	private static Pipe pipeB;
+	private static Pipe pipeC;
+	private static BackGround mountain, mountainf, cloud1, cloud1f, cloud2,
+			cloud2f, cloud3, cloud3f, mountain2, mountainf2, cloud12, cloud1f2,
+			cloud22, cloud2f2, cloud32, cloud3f2;
+	public static final int SCROLL_SPEED = -59, SCROLL_SPEED_MOUNTAIN = -10;
+	public static final int SCROLL_SPEED_BGL = -29, SCROLL_SPEED_BGR = -29;
+	public static final int PIPE_GAP = 49;
+	public static final int PIPE_SPACE_E = 65;
+	public static final int PIPE_SPACE_H = 45;
+	public static final int PIPE_SPACE_I = 35;
+	public float yPos;
+	public static float gameTime;
+	private Rectangle leftBound, rightBound;
+	private GameWorld gameWorld;
+	public static PowerUp powerUp;
+	public static int toggle = 1;
+	private int x = 299;
+
+	public ScrollHandler(GameWorld gameWorld, float yPos) {
+		this.gameWorld = gameWorld;
+
+		frontGrassR = new Grass(136, yPos, 136, 11, SCROLL_SPEED);
+		backGrassR = new Grass(frontGrassR.getTailX(1), yPos, 136, 11,
+				SCROLL_SPEED);
+		frontGrassL = new Grass(0, yPos, 136, 11, SCROLL_SPEED);
+		backGrassL = new Grass(frontGrassL.getTailX(-1), yPos, 136, 11,
+				SCROLL_SPEED);
+		this.yPos = yPos;
+
+		pipe1 = new Pipe(272, 0, 22, 60, SCROLL_SPEED, PIPE_SPACE_E, yPos);
+		pipe2 = new Pipe(pipe1.getTailX(1) + PIPE_GAP, 0, 22, 60, SCROLL_SPEED,
+				PIPE_SPACE_E, yPos);
+		pipe3 = new Pipe(pipe2.getTailX(1) + PIPE_GAP, 0, 22, 60, SCROLL_SPEED,
+				PIPE_SPACE_E, yPos);
+
+		pipeA = new Pipe(-22, 0, 22, 60, SCROLL_SPEED, PIPE_SPACE_E, yPos);
+		pipeB = new Pipe(pipeA.getTailX(-1) - PIPE_GAP, 0, 22, 60,
+				SCROLL_SPEED, PIPE_SPACE_E, yPos);
+		pipeC = new Pipe(pipeB.getTailX(-1) - PIPE_GAP, 0, 22, 60,
+				SCROLL_SPEED, PIPE_SPACE_E, yPos);
+
+		leftBound = new Rectangle(-10, 0, 10, yPos + 1);
+		rightBound = new Rectangle(272, 0, 10, yPos + 1);
+
+		powerUp = new PowerUp(x, (int) yPos - 66, 12, 12, 0, (int) yPos - 66);
+
+		mountain = new BackGround(136, (int) yPos - 15, 136, 43,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud1 = new BackGround(136, 0, 136, 43, SCROLL_SPEED_BGR);
+		cloud2 = new BackGround(136, -10, 136, 43, SCROLL_SPEED_BGR + 10);
+		cloud3 = new BackGround(136, -20, 136, 43, SCROLL_SPEED_BGR - 10);
+		mountain2 = new BackGround(mountain.getTailX(1), (int) yPos - 15 , 136, 43,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud12 = new BackGround(cloud1.getTailX(1), 0, 136, 43, SCROLL_SPEED_BGR);
+		cloud22 = new BackGround(cloud2.getTailX(1), -10, 136, 43, SCROLL_SPEED_BGR + 10);
+		cloud32 = new BackGround(cloud3.getTailX(1), -20, 136, 43, SCROLL_SPEED_BGR - 10);
+
+		mountainf = new BackGround(0, (int) yPos - 15, 136, 43,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud1f = new BackGround(0, 0, 136, 43, SCROLL_SPEED_BGL);
+		cloud2f = new BackGround(0, -10, 136, 43, SCROLL_SPEED_BGL + 10);
+		cloud3f = new BackGround(0, -20, 136, 43, SCROLL_SPEED_BGL - 10);
+		mountainf2 = new BackGround(mountainf.getTailX(-1), (int) yPos - 15, 136, 43,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud1f2 = new BackGround(cloud1f.getTailX(-1), 0, 136, 43, SCROLL_SPEED_BGL);
+		cloud2f2 = new BackGround(cloud2f.getTailX(-1), -10, 136, 43, SCROLL_SPEED_BGL + 10);
+		cloud3f2 = new BackGround(cloud3f.getTailX(-1), -20, 136, 43, SCROLL_SPEED_BGL - 10);
+
+	}
+
+	public void setPipeDifficulty(GameState difficulty) {
+		int space = 55;
+
+		if (difficulty == GameState.STARTE) {
+			space = PIPE_SPACE_E;
+		} else if (difficulty == GameState.STARTH) {
+			space = PIPE_SPACE_H;
+		} else if (difficulty == GameState.STARTI) {
+			space = PIPE_SPACE_I;
+		}
+		pipe1.setGapSpace(space);
+		pipe2.setGapSpace(space);
+		pipe3.setGapSpace(space);
+		pipeA.setGapSpace(space);
+		pipeB.setGapSpace(space);
+		pipeC.setGapSpace(space);
+
+	}
+
+	public void updateReady(float delta) {
+
+		frontGrassR.update(delta, 1);
+		backGrassR.update(delta, 1);
+		frontGrassL.update(delta, -1);
+		backGrassL.update(delta, -1);
+
+		mountain.update(delta, 1);
+		cloud1.update(delta, 1);
+		cloud2.update(delta, 1);
+		cloud3.update(delta, 1);
+		mountain2.update(delta, 1);
+		cloud12.update(delta, 1);
+		cloud22.update(delta, 1);
+		cloud32.update(delta, 1);
+
+		mountainf.update(delta, -1);
+		cloud1f.update(delta, -1);
+		cloud2f.update(delta, -1);
+		cloud3f.update(delta, -1);
+		mountainf2.update(delta, -1);
+		cloud1f2.update(delta, -1);
+		cloud2f2.update(delta, -1);
+		cloud3f2.update(delta, -1);
+
+		if (mountain.isScrolledLeft()) {
+			mountain.reset(mountain2.getTailX(1), 1);
+		} else if (mountain2.isScrolledLeft()) {
+			mountain2.reset(mountain.getTailX(1), 1);
+		}
+
+		if (cloud1.isScrolledLeft()) {
+			cloud1.reset(cloud12.getTailX(1), 1);
+		} else if (cloud12.isScrolledLeft()) {
+			cloud12.reset(cloud1.getTailX(1), 1);
+		}
+
+		if (cloud2.isScrolledLeft()) {
+			cloud2.reset(cloud22.getTailX(1), 1);
+		} else if (cloud22.isScrolledLeft()) {
+			cloud22.reset(cloud2.getTailX(1), 1);
+		}
+
+		if (cloud3.isScrolledLeft()) {
+			cloud3.reset(cloud32.getTailX(1), 1);
+		} else if (cloud32.isScrolledLeft()) {
+			cloud32.reset(cloud3.getTailX(1), 1);
+		}
+
+		if (mountainf.isScrolledRight()) {
+			mountainf.reset(mountainf2.getTailX(-1), -1);
+		} else if (mountainf2.isScrolledRight()) {
+			mountainf2.reset(mountainf.getTailX(-1), -1);
+		}
+
+		if (cloud1f.isScrolledRight()) {
+			cloud1f.reset(cloud1f2.getTailX(-1), -1);
+		} else if (cloud1f2.isScrolledRight()) {
+			cloud1f2.reset(cloud1f.getTailX(-1), -1);
+		}
+
+		if (cloud2f.isScrolledRight()) {
+			cloud2f.reset(cloud2f2.getTailX(-1), -1);
+		} else if (cloud2f2.isScrolledRight()) {
+			cloud2f2.reset(cloud2f.getTailX(-1), -1);
+		}
+
+		if (cloud3f.isScrolledRight()) {
+			cloud3f.reset(cloud3f2.getTailX(-1), -1);
+		} else if (cloud3f2.isScrolledRight()) {
+			cloud3f2.reset(cloud3f.getTailX(-1), -1);
+		}
+
+		if (frontGrassR.isScrolledLeft()) {
+			frontGrassR.reset(backGrassR.getTailX(1), 1);
+
+		} else if (backGrassR.isScrolledLeft()) {
+			backGrassR.reset(frontGrassR.getTailX(1), 1);
+
+		}
+
+		if (frontGrassL.isScrolledRight()) {
+			frontGrassL.reset(backGrassL.getTailX(-1), -1);
+
+		} else if (backGrassL.isScrolledRight()) {
+			backGrassL.reset(frontGrassL.getTailX(-1), -1);
+
+		}
+
+	}
+
+	public void update(float delta) {
+		gameTime += delta;
+		// Update our objects
+		pipe1.update(delta, 1);
+		pipe2.update(delta, 1);
+		pipe3.update(delta, 1);
+		pipeA.update(delta, -1);
+		pipeB.update(delta, -1);
+		pipeC.update(delta, -1);
+		frontGrassR.update(delta, 1);
+		backGrassR.update(delta, 1);
+		frontGrassL.update(delta, -1);
+		backGrassL.update(delta, -1);
+
+		powerUp.update(delta);
+
+		mountain.update(delta, 1);
+		cloud1.update(delta, 1);
+		cloud2.update(delta, 1);
+		cloud3.update(delta, 1);
+		mountain2.update(delta, 1);
+		cloud12.update(delta, 1);
+		cloud22.update(delta, 1);
+		cloud32.update(delta, 1);
+
+		mountainf.update(delta, -1);
+		cloud1f.update(delta, -1);
+		cloud2f.update(delta, -1);
+		cloud3f.update(delta, -1);
+		mountainf2.update(delta, -1);
+		cloud1f2.update(delta, -1);
+		cloud2f2.update(delta, -1);
+		cloud3f2.update(delta, -1);
+
+		if (mountain.isScrolledLeft()) {
+			mountain.reset(mountain2.getTailX(1), 1);
+		} else if (mountain2.isScrolledLeft()) {
+			mountain2.reset(mountain.getTailX(1), 1);
+		}
+
+		if (cloud1.isScrolledLeft()) {
+			cloud1.reset(cloud12.getTailX(1), 1);
+		} else if (cloud12.isScrolledLeft()) {
+			cloud12.reset(cloud1.getTailX(1), 1);
+		}
+
+		if (cloud2.isScrolledLeft()) {
+			cloud2.reset(cloud22.getTailX(1), 1);
+		} else if (cloud22.isScrolledLeft()) {
+			cloud22.reset(cloud2.getTailX(1), 1);
+		}
+
+		if (cloud3.isScrolledLeft()) {
+			cloud3.reset(cloud32.getTailX(1), 1);
+		} else if (cloud32.isScrolledLeft()) {
+			cloud32.reset(cloud3.getTailX(1), 1);
+		}
+
+		if (mountainf.isScrolledRight()) {
+			mountainf.reset(mountainf2.getTailX(-1), -1);
+		} else if (mountainf2.isScrolledRight()) {
+			mountainf2.reset(mountainf.getTailX(-1), -1);
+		}
+
+		if (cloud1f.isScrolledRight()) {
+			cloud1f.reset(cloud1f2.getTailX(-1), -1);
+		} else if (cloud1f2.isScrolledRight()) {
+			cloud1f2.reset(cloud1f.getTailX(-1), -1);
+		}
+
+		if (cloud2f.isScrolledRight()) {
+			cloud2f.reset(cloud2f2.getTailX(-1), -1);
+		} else if (cloud2f2.isScrolledRight()) {
+			cloud2f2.reset(cloud2f.getTailX(-1), -1);
+		}
+
+		if (cloud3f.isScrolledRight()) {
+			cloud3f.reset(cloud3f2.getTailX(-1), -1);
+		} else if (cloud3f2.isScrolledRight()) {
+			cloud3f2.reset(cloud3f.getTailX(-1), -1);
+		}
+
+		if ((int) gameTime > 0 && (int) gameTime % 10 == 0) {
+			switchToggle();
+			powerUp.onRestart();
+			powerUp.setVelocityX(SCROLL_SPEED * toggle);
+			powerUp.setAccelerationY(200);
+
+		}
+
+		if (pipe1.isScrolledLeft()) {
+			pipe1.reset(pipe3.getTailX(1) + PIPE_GAP, 1);
+		} else if (pipe2.isScrolledLeft()) {
+			pipe2.reset(pipe1.getTailX(1) + PIPE_GAP, 1);
+		} else if (pipe3.isScrolledLeft()) {
+			pipe3.reset(pipe2.getTailX(1) + PIPE_GAP, 1);
+		}
+
+		if (pipeA.isScrolledRight()) {
+			pipeA.reset(pipeC.getTailX(-1) - PIPE_GAP, -1);
+		} else if (pipeB.isScrolledRight()) {
+			pipeB.reset(pipeA.getTailX(-1) - PIPE_GAP, -1);
+		} else if (pipeC.isScrolledRight()) {
+			pipeC.reset(pipeB.getTailX(-1) - PIPE_GAP, -1);
+		}
+
+		// Same with grass
+		if (frontGrassR.isScrolledLeft()) {
+			frontGrassR.reset(backGrassR.getTailX(1), 1);
+		} else if (backGrassR.isScrolledLeft()) {
+			backGrassR.reset(frontGrassR.getTailX(1), 1);
+		}
+
+		if (frontGrassL.isScrolledRight()) {
+			frontGrassL.reset(backGrassL.getTailX(-1), -1);
+
+		} else if (backGrassL.isScrolledRight()) {
+			backGrassL.reset(frontGrassL.getTailX(-1), -1);
+
+		}
+	}
+
+	public void rearrangePipesRight(Bird bird) {
+		if (pipe1.collides(bird)) {
+			pipe1.setX(pipe2.getTailX(1) + PIPE_GAP * 2 + 22);
+			pipe1.setScored(false);
+		} else if (pipe2.collides(bird)) {
+			pipe2.setX(pipe3.getTailX(1) + PIPE_GAP * 2 + 22);
+			pipe2.setScored(false);
+		} else if (pipe3.collides(bird)) {
+			pipe3.setX(pipe1.getTailX(1) + PIPE_GAP * 2 + 22);
+			pipe3.setScored(false);
+		}
+	}
+
+	public static int getToggle() {
+		return toggle;
+	}
+
+	public static void switchToggle() {
+		toggle *= -1;
+	}
+
+	public void rearrangePipesLeft(Bird bird) {
+		if (pipeA.collides(bird)) {
+			pipeA.setX(pipeB.getX() - PIPE_GAP * 2 - 44);
+			pipeA.setScored(false);
+		} else if (pipeB.collides(bird)) {
+			pipeB.setX(pipeC.getX() - PIPE_GAP * 2 - 44);
+			pipeB.setScored(false);
+		} else if (pipeC.collides(bird)) {
+			pipeC.setX(pipeA.getX() - PIPE_GAP * 2 - 44);
+			pipeC.setScored(false);
+		}
+	}
+
+	public void stop() {
+		frontGrassR.stop();
+		backGrassR.stop();
+		frontGrassL.stop();
+		backGrassL.stop();
+		pipe1.stop();
+		pipe2.stop();
+		pipe3.stop();
+		pipeA.stop();
+		pipeB.stop();
+		pipeC.stop();
+		powerUp.stop();
+	}
+
+	public boolean collides(Bird bird) {
+
+		if (!pipe1.isScored()
+				&& pipe1.getX() + (pipe1.getWidth() / 2) < bird.getX()
+						+ bird.getWidth()) {
+			addScore(1);
+			pipe1.setScored(true);
+			AssetLoader.coin.play(0.3f);
+		} else if (!pipe2.isScored()
+				&& pipe2.getX() + (pipe2.getWidth() / 2) < bird.getX()
+						+ bird.getWidth()) {
+			addScore(1);
+			pipe2.setScored(true);
+			AssetLoader.coin.play(0.3f);
+
+		} else if (!pipe3.isScored()
+				&& pipe3.getX() + (pipe3.getWidth() / 2) < bird.getX()
+						+ bird.getWidth()) {
+			addScore(1);
+			pipe3.setScored(true);
+			AssetLoader.coin.play(0.3f);
+
+		}
+
+		return (pipe1.collides(bird) || pipe2.collides(bird) || pipe3
+				.collides(bird));
+	}
+
+	public boolean collidesLeft(Bird bird) {
+
+		if (!pipeA.isScored()
+				&& pipeA.getX() + (pipeA.getWidth() / 2) > bird.getX()) {
+			addScore(1);
+			pipeA.setScored(true);
+			AssetLoader.coin.play(0.3f);
+		} else if (!pipeB.isScored()
+				&& pipeB.getX() + (pipeB.getWidth() / 2) > bird.getX()) {
+			addScore(1);
+			pipeB.setScored(true);
+			AssetLoader.coin.play(0.3f);
+
+		} else if (!pipeC.isScored()
+				&& pipeC.getX() + (pipeC.getWidth() / 2) > bird.getX()) {
+			addScore(1);
+			pipeC.setScored(true);
+			AssetLoader.coin.play(0.3f);
+
+		}
+
+		return (pipeA.collides(bird) || pipeB.collides(bird) || pipeC
+				.collides(bird));
+	}
+
+	public boolean collidesBounds(Bird bird) {
+		return Intersector.overlaps(bird.getBoundingCircle(), rightBound)
+				|| Intersector.overlaps(bird.getBoundingCircle(), leftBound);
+	}
+
+	public boolean collidesPowerUp(Bird bird) {
+		if (powerUp.getX() < bird.getX() + bird.getWidth()) {
+			if (Intersector.overlaps(bird.getBoundingCircle(),
+					powerUp.getBoundingCircle())) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	private void addScore(int increment) {
+		gameWorld.addScore(increment);
+	}
+
+	public Grass getFrontGrassR() {
+		return frontGrassR;
+	}
+
+	public Grass getBackGrassR() {
+		return backGrassR;
+	}
+
+	public Grass getFrontGrassL() {
+		return frontGrassL;
+	}
+
+	public Grass getBackGrassL() {
+		return backGrassL;
+	}
+
+	public static Pipe getPipe1() {
+		return pipe1;
+	}
+
+	public static Pipe getPipe2() {
+		return pipe2;
+	}
+
+	public static Pipe getPipe3() {
+		return pipe3;
+	}
+
+	public static Pipe getPipeA() {
+		return pipeA;
+	}
+
+	public static Pipe getPipeB() {
+		return pipeB;
+	}
+
+	public static Pipe getPipeC() {
+		return pipeC;
+	}
+
+	public PowerUp getPowerUp() {
+		return powerUp;
+	}
+
+	public static BackGround getBackGround(String type) {
+		if (type == "mountain") {
+			return mountain;
+		} else if (type == "mountainf") {
+			return mountainf;
+		} else if (type == "cloud1") {
+			return cloud1;
+		} else if (type == "cloud1f") {
+			return cloud1f;
+		} else if (type == "cloud2") {
+			return cloud2;
+		} else if (type == "cloud2f") {
+			return cloud2f;
+		} else if (type == "cloud3") {
+			return cloud3;
+		} else if (type == "cloud3f") {
+			return cloud3f;
+		} else {
+			return mountain;
+		}
+	}
+
+	public static BackGround getBackGround2(String type) {
+		if (type == "mountain2") {
+			return mountain2;
+		} else if (type == "mountainf2") {
+			return mountainf2;
+		} else if (type == "cloud12") {
+			return cloud12;
+		} else if (type == "cloud1f2") {
+			return cloud1f2;
+		} else if (type == "cloud22") {
+			return cloud22;
+		} else if (type == "cloud2f2") {
+			return cloud2f2;
+		} else if (type == "cloud32") {
+			return cloud32;
+		} else if (type == "cloud3f2") {
+			return cloud3f2;
+		} else {
+			return mountain2;
+		}
+	}
+
+	public static int getPipeX1() {
+		return (int) pipe1.getX();
+	}
+
+	public static int getPipeX2() {
+		return (int) pipe2.getX();
+	}
+
+	public static int getPipeX3() {
+		return (int) pipe3.getX();
+	}
+
+	public static int getPipeXA() {
+		return (int) pipeA.getX();
+	}
+
+	public static int getPipeXB() {
+		return (int) pipeB.getX();
+	}
+
+	public static int getPipeXC() {
+		return (int) pipeC.getX();
+	}
+
+	public void restartPowerUp() {
+		powerUp.onRestart();
+	}
+
+	public static int getRunTime() {
+		return (int) gameTime;
+	}
+
+	public void onRestart() {
+		frontGrassL.onRestart(0, SCROLL_SPEED);
+		backGrassL.onRestart(frontGrassL.getTailX(-1), SCROLL_SPEED);
+		frontGrassR.onRestart(136, SCROLL_SPEED);
+		backGrassR.onRestart(frontGrassR.getTailX(1), SCROLL_SPEED);
+		pipe1.onRestart(272, 1, SCROLL_SPEED);
+		pipe2.onRestart(pipe1.getTailX(1) + PIPE_GAP, 1, SCROLL_SPEED);
+		pipe3.onRestart(pipe2.getTailX(1) + PIPE_GAP, 1, SCROLL_SPEED);
+		pipeA.onRestart(-22, -1, SCROLL_SPEED);
+		pipeB.onRestart(pipeA.getTailX(-1) - PIPE_GAP, -1, SCROLL_SPEED);
+		pipeC.onRestart(pipeB.getTailX(-1) - PIPE_GAP, -1, SCROLL_SPEED);
+		powerUp.onRestart();
+		gameTime = 0;
+	}
+
+}

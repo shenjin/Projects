@@ -88,7 +88,7 @@ public class PowerUp {
 		position.x = x;
 	}
 
-	public float getXX() {
+	public float getX() {
 		return position.x;
 	}
 

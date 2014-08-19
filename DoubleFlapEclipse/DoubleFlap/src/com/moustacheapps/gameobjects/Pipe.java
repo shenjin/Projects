@@ -13,7 +13,7 @@ public class Pipe extends Scrollable {
 	private Rectangle skullUp, skullDown, barUp, barDown;
 
 	public static final int SKULL_WIDTH = 24;
-	public static final int SKULL_HEIGHT = 11;
+	public static final int SKULL_HEIGHT = 14;
 	public float gapSpace;
 	private float groundY;
 
@@ -48,19 +48,10 @@ public class Pipe extends Scrollable {
 		// Call the update method in the superclass (Scrollable)
 		super.update(delta, type);
 
-		// The set() method allows you to set the top left corner's x, y
-		// coordinates,
-		// along with the width and height of the rectangle
-
 		barUp.set(position.x, position.y, width, height);
 		barDown.set(position.x, position.y + height + gapSpace, width, groundY
 				- (position.y + height + gapSpace));
 
-		// Our skull width is 24. The bar is only 22 pixels wide. So the skull
-		// must be shifted by 1 pixel to the left (so that the skull is centered
-		// with respect to its bar).
-
-		// This shift is equivalent to: (SKULL_WIDTH - width) / 2
 		skullUp.set(position.x - (SKULL_WIDTH - width) / 2, position.y + height
 				- SKULL_HEIGHT, SKULL_WIDTH, SKULL_HEIGHT);
 		skullDown.set(position.x - (SKULL_WIDTH - width) / 2, barDown.y,
@@ -79,6 +70,10 @@ public class Pipe extends Scrollable {
 	}
 
 	public void onRestart(float x, int type, float scrollSpeed) {
+		skullUp.set(x - (SKULL_WIDTH - width) / 2, position.y + height
+				- SKULL_HEIGHT, SKULL_WIDTH, SKULL_HEIGHT);
+		skullDown.set(x - (SKULL_WIDTH - width) / 2, barDown.y,
+				SKULL_WIDTH, SKULL_HEIGHT);
 		velocity.x = scrollSpeed;
 		reset(x, type);
 	}
@@ -116,5 +111,11 @@ public class Pipe extends Scrollable {
 	public void setScored(boolean b) {
 		isScored = b;
 	}
+	
+	@Override
+	public int getHeight() {
+		return super.getHeight();
+	}
+	
 
 }

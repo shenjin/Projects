@@ -26,13 +26,13 @@ public class Scrollable {
 			position.add(velocity.cpy().scl(delta));
 
 			// If the Scrollable object is no longer visible:
-			if (position.x + width < 136) {
+			if (position.x + width <= 136) {
 				isScrolledLeft = true;
 			}
 		} else {
 			position.sub(velocity.cpy().scl(delta));
 
-			if (position.x > 136) {
+			if (position.x >= 136) {
 				isScrolledRight = true;
 			}
 		}

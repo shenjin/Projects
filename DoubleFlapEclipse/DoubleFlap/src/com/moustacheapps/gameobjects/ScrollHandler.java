@@ -18,7 +18,7 @@ public class ScrollHandler {
 	private static BackGround mountain, mountainf, cloud1, cloud1f, cloud2,
 			cloud2f, cloud3, cloud3f, mountain2, mountainf2, cloud12, cloud1f2,
 			cloud22, cloud2f2, cloud32, cloud3f2;
-	public static final int SCROLL_SPEED = -59;
+	public static final int SCROLL_SPEED = -59, SCROLL_SPEED_MOUNTAIN = -10;
 	public static final int SCROLL_SPEED_BGL = -29, SCROLL_SPEED_BGR = -29;
 	public static final int PIPE_GAP = 49;
 	public static final int PIPE_SPACE_E = 65;
@@ -60,27 +60,27 @@ public class ScrollHandler {
 
 		powerUp = new PowerUp(x, (int) yPos - 66, 12, 12, 0, (int) yPos - 66);
 
-		mountain = new BackGround(136, (int) yPos - 43, 136, 43,
-				SCROLL_SPEED_BGR + 5);
+		mountain = new BackGround(136, (int) yPos - 15, 136, 15,
+				SCROLL_SPEED_MOUNTAIN);
 		cloud1 = new BackGround(136, 0, 136, 43, SCROLL_SPEED_BGR);
 		cloud2 = new BackGround(136, -10, 136, 43, SCROLL_SPEED_BGR + 10);
 		cloud3 = new BackGround(136, -20, 136, 43, SCROLL_SPEED_BGR - 10);
-		mountain2 = new BackGround(272, (int) yPos - 43, 136, 43,
-				SCROLL_SPEED_BGR + 5);
-		cloud12 = new BackGround(272, 0, 136, 43, SCROLL_SPEED_BGR);
-		cloud22 = new BackGround(272, -10, 136, 43, SCROLL_SPEED_BGR + 10);
-		cloud32 = new BackGround(272, -20, 136, 43, SCROLL_SPEED_BGR - 10);
+		mountain2 = new BackGround(mountain.getTailX(1), (int) yPos - 15 , 136, 15,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud12 = new BackGround(cloud1.getTailX(1), 0, 136, 43, SCROLL_SPEED_BGR);
+		cloud22 = new BackGround(cloud2.getTailX(1), -10, 136, 43, SCROLL_SPEED_BGR + 10);
+		cloud32 = new BackGround(cloud3.getTailX(1), -20, 136, 43, SCROLL_SPEED_BGR - 10);
 
-		mountainf = new BackGround(0, (int) yPos - 43, 136, 43,
-				SCROLL_SPEED_BGL + 5);
+		mountainf = new BackGround(0, (int) yPos - 15, 136, 15,
+				SCROLL_SPEED_MOUNTAIN);
 		cloud1f = new BackGround(0, 0, 136, 43, SCROLL_SPEED_BGL);
 		cloud2f = new BackGround(0, -10, 136, 43, SCROLL_SPEED_BGL + 10);
 		cloud3f = new BackGround(0, -20, 136, 43, SCROLL_SPEED_BGL - 10);
-		mountainf2 = new BackGround(-136, (int) yPos - 43, 136, 43,
-				SCROLL_SPEED_BGL + 5);
-		cloud1f2 = new BackGround(-136, 0, 136, 43, SCROLL_SPEED_BGL);
-		cloud2f2 = new BackGround(-136, -10, 136, 43, SCROLL_SPEED_BGL + 10);
-		cloud3f2 = new BackGround(-136, -20, 136, 43, SCROLL_SPEED_BGL - 10);
+		mountainf2 = new BackGround(mountainf.getTailX(-1), (int) yPos - 15, 136, 15,
+				SCROLL_SPEED_MOUNTAIN);
+		cloud1f2 = new BackGround(cloud1f.getTailX(-1), 0, 136, 43, SCROLL_SPEED_BGL);
+		cloud2f2 = new BackGround(cloud2f.getTailX(-1), -10, 136, 43, SCROLL_SPEED_BGL + 10);
+		cloud3f2 = new BackGround(cloud3f.getTailX(-1), -20, 136, 43, SCROLL_SPEED_BGL - 10);
 
 	}
 
@@ -423,7 +423,7 @@ public class ScrollHandler {
 	}
 
 	public boolean collidesPowerUp(Bird bird) {
-		if (powerUp.getXX() < bird.getX() + bird.getWidth()) {
+		if (powerUp.getX() < bird.getX() + bird.getWidth()) {
 			if (Intersector.overlaps(bird.getBoundingCircle(),
 					powerUp.getBoundingCircle())) {
 				return true;

@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="scissorsRight" key="selection"/>
+		<item value="mountain" key="selection"/>
 		<list key="findhistory">
+			<item value="mountain"/>
+			<item value="restart"/>
+			<item value="gameov"/>
+			<item value="game"/>
+			<item value="ismenu"/>
 			<item value="scissorsRight"/>
 			<item value="filter"/>
 			<item value="get 20"/>
-			<item value="get"/>
-			<item value="button"/>
-			<item value="getHi"/>
-			<item value="setH"/>
-			<item value="bird"/>
 		</list>
 		<list key="replacehistory">
 		</list>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.ui.Button"/>
+<fullyQualifiedTypeName name="com.moustacheapps.gameobjects.Scrollable"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.utils.ScissorStack"/>
 </qualifiedTypeNameHistroy>

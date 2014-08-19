@@ -1,0 +1,596 @@
+package com.moustacheapps.gameworld;
+
+//import java.util.List;
+
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
+import com.moustacheapps.dfhelpers.AssetLoader;
+import com.moustacheapps.dfhelpers.InputHandler;
+import com.moustacheapps.gameobjects.BackGround;
+import com.moustacheapps.gameobjects.Bird;
+import com.moustacheapps.gameobjects.Grass;
+import com.moustacheapps.gameobjects.Pipe;
+import com.moustacheapps.gameobjects.PowerUp;
+import com.moustacheapps.gameobjects.ScrollHandler;
+import com.moustacheapps.gameobjects.Scrollable;
+import com.moustacheapps.tweenaccessors.Value;
+import com.moustacheapps.tweenaccessors.ValueAccessor;
+import com.moustacheapps.ui.SimpleButton;
+
+public class GameRenderer {
+
+	private GameWorld myWorld;
+	private OrthographicCamera cam;
+	private ShapeRenderer shapeRenderer;
+
+	private SpriteBatch batcher;
+
+	private int midPointY, screenWidth, screenHeight; // gameHeight;
+
+	// Game Objects
+	private Bird bird, bird2;
+	private ScrollHandler scroller;
+	private Grass frontGrassL, backGrassL, frontGrassR, backGrassR;
+	private Pipe pipe1, pipe2, pipe3, pipeA, pipeB, pipeC;
+	private PowerUp powerUp;
+	private BackGround mountainScroll, mountainfScroll, cloud1Scroll,
+			cloud1fScroll, cloud2Scroll, cloud2fScroll, cloud3Scroll,
+			cloud3fScroll, mountainScroll2, mountainfScroll2, cloud1Scroll2,
+			cloud1fScroll2, cloud2Scroll2, cloud2fScroll2, cloud3Scroll2,
+			cloud3fScroll2;
+
+	// Game Assets
+	private TextureRegion mountain, mountainf, cloud1, cloud1f, cloud2,
+			cloud2f, cloud3, cloud3f,
+			grassL, grassR, birdMid, birdMid2, skullUp, skullDown, bar,
+			zbLogo, gameOver, highScore, scoreboard, star, noStar, retry,
+			powerUpAsset;
+	private Animation birdAnimation, birdAnimation2;
+
+	// Tween stuff
+	private TweenManager manager;
+	private Value alpha = new Value();
+
+	// Buttons
+	private SimpleButton playButton, easyButton, hardButton, insaneButton,
+			hardLockButton, insaneLockButton, shuffleButtonOn,
+			shuffleButtonOff, shuffleLockButton, retryButton;
+	private Color transitionColor;
+
+	public Rectangle scissorsLeft, scissorsRight, left, right, grassScissorsRight, grassScissorsLeft;
+
+	public GameRenderer(GameWorld world, int gameHeight, int midPointY,
+			int screenWidth, int screenHeight) {
+		myWorld = world;
+
+		this.midPointY = midPointY;
+		this.playButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getPlayButton();
+		this.easyButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getEasyButton();
+		this.hardButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getHardButton();
+		this.hardLockButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getHardLockButton();
+		this.insaneButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getInsaneButton();
+		this.insaneLockButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getInsaneLockButton();
+		this.shuffleButtonOn = ((InputHandler) Gdx.input.getInputProcessor())
+				.getShuffleButtonOn();
+		this.shuffleButtonOff = ((InputHandler) Gdx.input.getInputProcessor())
+				.getShuffleButtonOff();
+		this.shuffleLockButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getShuffleLockButton();
+		this.retryButton = ((InputHandler) Gdx.input.getInputProcessor())
+				.getRetryButton();
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		// this.gameHeight = gameHeight;
+
+		left = new Rectangle(0, 0, 136, gameHeight);
+		right = new Rectangle(136, 0, 136, gameHeight);
+		scissorsLeft = new Rectangle(0, 0, 136, gameHeight);
+		scissorsRight = new Rectangle(136, 0, 136, gameHeight);
+		grassScissorsLeft = new Rectangle(0, midPointY + 66, 136, 11);
+		grassScissorsRight = new Rectangle(136, midPointY + 66, 136, 11);
+
+		cam = new OrthographicCamera();
+		cam.setToOrtho(true, 272, gameHeight);
+
+		batcher = new SpriteBatch();
+		batcher.setProjectionMatrix(cam.combined);
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setProjectionMatrix(cam.combined);
+
+		initGameObjects();
+		initAssets();
+
+		transitionColor = new Color();
+		prepareTransition(255, 255, 255, .5f);
+	}
+
+	private void initGameObjects() {
+		bird = myWorld.getBird();
+		bird2 = myWorld.getBird2();
+		scroller = myWorld.getScroller();
+		frontGrassL = scroller.getFrontGrassL();
+		backGrassL = scroller.getBackGrassL();
+		frontGrassR = scroller.getFrontGrassR();
+		backGrassR = scroller.getBackGrassR();
+		pipe1 = ScrollHandler.getPipe1();
+		pipe2 = ScrollHandler.getPipe2();
+		pipe3 = ScrollHandler.getPipe3();
+		pipeA = ScrollHandler.getPipeA();
+		pipeB = ScrollHandler.getPipeB();
+		pipeC = ScrollHandler.getPipeC();
+		powerUp = scroller.getPowerUp();
+		mountainScroll = ScrollHandler.getBackGround("mountain");
+		mountainfScroll = ScrollHandler.getBackGround("mountainf");
+		cloud1Scroll = ScrollHandler.getBackGround("cloud1");
+		cloud1fScroll = ScrollHandler.getBackGround("cloud1f");
+		cloud2Scroll = ScrollHandler.getBackGround("cloud2");
+		cloud2fScroll = ScrollHandler.getBackGround("cloud2f");
+		cloud3Scroll = ScrollHandler.getBackGround("cloud3");
+		cloud3fScroll = ScrollHandler.getBackGround("cloud3f");
+		mountainScroll2 = ScrollHandler.getBackGround2("mountain2");
+		mountainfScroll2 = ScrollHandler.getBackGround2("mountainf2");
+		cloud1Scroll2 = ScrollHandler.getBackGround2("cloud12");
+		cloud1fScroll2 = ScrollHandler.getBackGround2("cloud1f2");
+		cloud2Scroll2 = ScrollHandler.getBackGround2("cloud22");
+		cloud2fScroll2 = ScrollHandler.getBackGround2("cloud2f2");
+		cloud3Scroll2 = ScrollHandler.getBackGround2("cloud32");
+		cloud3fScroll2 = ScrollHandler.getBackGround2("cloud3f2");
+	}
+
+	private void initAssets() {
+		powerUpAsset = AssetLoader.powerUp;
+		mountain = AssetLoader.mountain;
+		mountainf = AssetLoader.mountainf;
+		cloud1 = AssetLoader.cloud1;
+		cloud1f = AssetLoader.cloud1f;
+		cloud2 = AssetLoader.cloud2;
+		cloud2f = AssetLoader.cloud2f;
+		cloud3 = AssetLoader.cloud3;
+		cloud3f = AssetLoader.cloud3f;
+		grassL = AssetLoader.grassL;
+		grassR = AssetLoader.grassR;
+		birdAnimation = AssetLoader.birdAnimation;
+		birdAnimation2 = AssetLoader.birdAnimation2;
+		birdMid = AssetLoader.bird;
+		birdMid2 = AssetLoader.bird2;
+		skullUp = AssetLoader.skullUp;
+		skullDown = AssetLoader.skullDown;
+		bar = AssetLoader.bar;
+		zbLogo = AssetLoader.zbLogo;
+		gameOver = AssetLoader.gameOver;
+		highScore = AssetLoader.highScore;
+		scoreboard = AssetLoader.scoreboard;
+		retry = AssetLoader.retry;
+		star = AssetLoader.star;
+		noStar = AssetLoader.noStar;
+
+	}
+
+	public void drawStuff(TextureRegion img, Scrollable back) {
+		batcher.draw(img, back.getX(), back.getY(), back.getWidth(), back.getHeight());
+	}
+	
+	public void drawPowerUp() {
+		batcher.draw(powerUpAsset, powerUp.getX(), powerUp.getY(),
+				powerUp.getWidth(), powerUp.getHeight());
+	}
+	
+	public void drawPipeTip(Pipe pipe) {
+		batcher.draw(skullUp, pipe.getSkullUp().x,
+				pipe.getSkullUp().y, pipe.getSkullUp().width, pipe.getSkullUp().height);
+		batcher.draw(skullDown, pipe.getSkullDown().x,
+				pipe.getSkullDown().y, pipe.getSkullDown().width, pipe.getSkullDown().height);
+	}
+	
+	public void drawPipe(Pipe pipe){
+		batcher.draw(bar, pipe.getX(), pipe.getY(), pipe.getWidth(),
+				pipe.getHeight());
+		batcher.draw(bar, pipe.getX(), pipe.getBarDown().y, pipe.getWidth(), pipe.getBarDown().height);
+	}
+	
+	private void drawPipesRight() {
+		batcher.draw(bar, pipe1.getX(), pipe1.getY(), pipe1.getWidth(),
+				pipe1.getHeight());
+		batcher.draw(bar, pipe1.getX(), pipe1.getY() + pipe1.getHeight()
+				+ pipe1.getGapSpace(), pipe1.getWidth(), midPointY + 66
+				- (pipe1.getHeight() + pipe1.getGapSpace()));
+
+		batcher.draw(bar, pipe2.getX(), pipe2.getY(), pipe2.getWidth(),
+				pipe2.getHeight());
+		batcher.draw(bar, pipe2.getX(), pipe2.getY() + pipe2.getHeight()
+				+ pipe1.getGapSpace(), pipe2.getWidth(), midPointY + 66
+				- (pipe2.getHeight() + pipe1.getGapSpace()));
+
+		batcher.draw(bar, pipe3.getX(), pipe3.getY(), pipe3.getWidth(),
+				pipe3.getHeight());
+		batcher.draw(bar, pipe3.getX(), pipe3.getY() + pipe3.getHeight()
+				+ pipe1.getGapSpace(), pipe3.getWidth(), midPointY + 66
+				- (pipe3.getHeight() + pipe1.getGapSpace()));
+		batcher.flush();
+
+		ScissorStack.popScissors();
+	}
+
+	private void drawPipesLeft() {
+		ScissorStack.calculateScissors(cam, 0, 0, screenWidth, screenHeight,
+				batcher.getTransformMatrix(), left, scissorsLeft);
+		ScissorStack.pushScissors(scissorsLeft);
+		batcher.flush();
+		batcher.draw(bar, pipeA.getX(), pipeA.getY(), pipeA.getWidth(),
+				pipeA.getHeight());
+		batcher.draw(bar, pipeA.getX(), pipeA.getY() + pipeA.getHeight()
+				+ pipe1.getGapSpace(), pipeA.getWidth(), midPointY + 66
+				- (pipeA.getHeight() + pipe1.getGapSpace()));
+
+		batcher.draw(bar, pipeB.getX(), pipeB.getY(), pipeB.getWidth(),
+				pipeB.getHeight());
+		batcher.draw(bar, pipeB.getX(), pipeB.getY() + pipeB.getHeight()
+				+ pipe1.getGapSpace(), pipe2.getWidth(), midPointY + 66
+				- (pipeB.getHeight() + pipe1.getGapSpace()));
+
+		batcher.draw(bar, pipeC.getX(), pipeC.getY(), pipeC.getWidth(),
+				pipeC.getHeight());
+		batcher.draw(bar, pipeC.getX(), pipeC.getY() + pipeC.getHeight()
+				+ pipe1.getGapSpace(), pipeC.getWidth(), midPointY + 66
+				- (pipeC.getHeight() + pipe1.getGapSpace()));
+		batcher.flush();
+
+		ScissorStack.popScissors();
+	}
+
+	private void drawBirdCentered(float runTime) {
+		batcher.draw(birdAnimation.getKeyFrame(runTime), bird.getX(),
+				bird.getY(), bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+				bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+		batcher.draw(birdAnimation2.getKeyFrame(runTime), bird2.getX(),
+				bird2.getY(), bird2.getWidth() / 2.0f,
+				bird2.getHeight() / 2.0f, bird2.getWidth(), bird2.getHeight(),
+				1, 1, bird2.getRotation());
+	}
+
+	private void drawBird(float runTime) {
+
+		if (bird.shouldntFlap()) {
+			batcher.draw(birdMid, bird.getX(), bird.getY(),
+					bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+					bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+
+		} else {
+			batcher.draw(birdAnimation.getKeyFrame(runTime), bird.getX(),
+					bird.getY(), bird.getWidth() / 2.0f,
+					bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+					1, 1, bird.getRotation());
+		}
+
+		if (bird2.shouldntFlap()) {
+			batcher.draw(birdMid2, bird2.getX(), bird2.getY(),
+					bird2.getWidth() / 2.0f, bird2.getHeight() / 2.0f,
+					bird2.getWidth(), bird2.getHeight(), 1, 1,
+					bird2.getRotation());
+
+		} else {
+			batcher.draw(birdAnimation2.getKeyFrame(runTime), bird2.getX(),
+					bird2.getY(), bird2.getWidth() / 2.0f,
+					bird2.getHeight() / 2.0f, bird2.getWidth(),
+					bird2.getHeight(), 1, 1, bird2.getRotation());
+		}
+
+	}
+
+	private void drawMenuUI() {
+		batcher.draw(zbLogo,
+				272 / 2 - ((zbLogo.getRegionWidth() / 1.2f) / 2.0f),
+				midPointY - 40, zbLogo.getRegionWidth() / 1.2f,
+				zbLogo.getRegionHeight() / 1.2f);
+
+		playButton.draw(batcher);
+
+	}
+
+	private void drawDifficultyUI() {
+		easyButton.draw(batcher);
+		hardButton.draw(batcher);
+		insaneButton.draw(batcher);
+	}
+
+	private void drawDifficultyUIHU() {
+		easyButton.draw(batcher);
+		hardButton.draw(batcher);
+		insaneLockButton.draw(batcher);
+	}
+
+	private void drawDifficultyUIIU() {
+		easyButton.draw(batcher);
+		hardLockButton.draw(batcher);
+		insaneLockButton.draw(batcher);
+	}
+
+	private void drawShuffleUI() {
+		if (InputHandler.getShuffleState() == 0) {
+			shuffleButtonOff.draw(batcher);
+			AssetLoader.whiteFont.draw(batcher, "Shuffle is off",
+					136 - (2.5f * 10), midPointY + 59);
+		} else {
+			shuffleButtonOn.draw(batcher);
+			AssetLoader.whiteFont.draw(batcher, "Shuffle is  on",
+					136 - (2.5f * 10), midPointY + 59);
+		}
+	}
+
+	private void drawShuffleLockUI() {
+		shuffleLockButton.draw(batcher);
+	}
+
+	private void drawLives() {
+		AssetLoader.whiteFont.draw(batcher, "" + GameWorld.getLives(), 5, 5);
+	}
+
+	private void drawScoreboard() {
+		batcher.draw(scoreboard, 87, midPointY - 30, 97, 37);
+		batcher.draw(noStar, 90, midPointY - 15, 10, 10);
+		batcher.draw(noStar, 102, midPointY - 15, 10, 10);
+		batcher.draw(noStar, 114, midPointY - 15, 10, 10);
+		batcher.draw(noStar, 126, midPointY - 15, 10, 10);
+		batcher.draw(noStar, 138, midPointY - 15, 10, 10);
+
+		if (GameWorld.getScore() > 2) {
+			batcher.draw(star, 138, midPointY - 15, 10, 10);
+		}
+
+		if (GameWorld.getScore() > 17) {
+			batcher.draw(star, 126, midPointY - 15, 10, 10);
+		}
+
+		if (GameWorld.getScore() > 50) {
+			batcher.draw(star, 114, midPointY - 15, 10, 10);
+		}
+
+		if (GameWorld.getScore() > 80) {
+			batcher.draw(star, 102, midPointY - 15, 10, 10);
+		}
+
+		if (GameWorld.getScore() > 120) {
+			batcher.draw(star, 90, midPointY - 15, 10, 10);
+		}
+
+		int length = ("" + GameWorld.getScore()).length();
+
+		AssetLoader.whiteFont.draw(batcher, "" + GameWorld.getScore(),
+				169 - (2 * length), midPointY - 20);
+
+		int length2 = ("" + AssetLoader.getHighScore()).length();
+		AssetLoader.whiteFont.draw(batcher, "" + AssetLoader.getHighScore(),
+				169 - (2.5f * length2), midPointY - 3);
+
+	}
+
+	private void drawUnlockHard() {
+		AssetLoader.whiteFont.draw(batcher, "" + "Get 20 in EASY",
+				136 - (2.5f * 10), midPointY - 9);
+	}
+
+	private void drawUnlockInsane() {
+		AssetLoader.whiteFont.draw(batcher, "" + "Get 40 in HARD",
+				136 - (2.5f * 10), midPointY + 25);
+	}
+
+	private void drawUnlockShuffle() {
+		if (GameWorld.getGamesNeeded() == 10) {
+			AssetLoader.whiteFont.draw(batcher,
+					"" + "Play " + GameWorld.getGamesNeeded() + " Games",
+					136 - (2.5f * 10), midPointY + 59);
+		} else {
+			AssetLoader.whiteFont.draw(batcher,
+					"" + "Play  " + GameWorld.getGamesNeeded() + " Games",
+					136 - (2.5f * 10), midPointY + 59);
+		}
+	}
+
+	private void drawRetry() {
+		batcher.draw(retry, 103, midPointY + 10, 66, 14);
+		retryButton.draw(batcher);
+	}
+
+	private void drawGameOver() {
+		batcher.draw(gameOver, 90, midPointY - 50, 92, 14);
+	}
+
+	private void drawScore() {
+		int length = ("" + GameWorld.getScore()).length();
+		AssetLoader.shadow.draw(batcher, "" + GameWorld.getScore(),
+				136 - (3 * length), 5);
+		AssetLoader.font.draw(batcher, "" + GameWorld.getScore(),
+				136 - (3 * length), 5);
+	}
+
+	private void drawHighScore() {
+		batcher.draw(highScore, 88, midPointY - 50, 96, 14);
+	}
+
+	public void render(float delta, float runTime) {
+
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		shapeRenderer.begin(ShapeType.Filled);
+
+		// Draw Background color
+		shapeRenderer.setColor(0 / 255.0f, 165 / 255.0f, 231 / 255.0f, 1);
+		shapeRenderer.rect(0, 0, 272, midPointY + 66);
+
+		// Draw Grass
+		shapeRenderer.setColor(111 / 255.0f, 186 / 255.0f, 45 / 255.0f, 1);
+		shapeRenderer.rect(0, midPointY + 66, 272, 11);
+
+		// Draw Dirt
+		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
+		shapeRenderer.rect(0, midPointY + 77, 272, 52);
+
+		shapeRenderer.end();
+
+		batcher.begin();
+		batcher.enableBlending();
+		ScissorStack.calculateScissors(cam, 0, 0, screenWidth, screenHeight,
+				batcher.getTransformMatrix(), right, scissorsRight);
+		ScissorStack.pushScissors(scissorsRight);
+		batcher.flush();
+		drawStuff(cloud1, cloud1Scroll);
+		drawStuff(cloud1, cloud1Scroll2);		
+		drawStuff(cloud2, cloud2Scroll);
+		drawStuff(cloud2, cloud2Scroll2);
+		drawStuff(cloud3, cloud3Scroll);
+		drawStuff(cloud3, cloud3Scroll2);
+		drawStuff(mountain, mountainScroll);
+		drawStuff(mountain, mountainScroll2);
+		drawPipe(pipe1);
+		drawPipe(pipe2);
+		drawPipe(pipe3);
+		drawPipeTip(pipe1);
+		drawPipeTip(pipe2);
+		drawPipeTip(pipe3);
+		batcher.flush();
+		ScissorStack.popScissors();
+		
+		ScissorStack.calculateScissors(cam, 0, 0, screenWidth, screenHeight,
+				batcher.getTransformMatrix(), left, scissorsLeft);
+		ScissorStack.pushScissors(scissorsLeft);
+		batcher.flush();
+		drawStuff(cloud1f, cloud1fScroll);
+		drawStuff(cloud1f, cloud1fScroll2);
+		drawStuff(cloud2f, cloud2fScroll);
+		drawStuff(cloud2f, cloud2fScroll2);
+		drawStuff(cloud3f, cloud3fScroll);
+		drawStuff(cloud3f, cloud3fScroll2);
+		drawStuff(mountainf, mountainfScroll);
+		drawStuff(mountainf, mountainfScroll2);
+		drawPipe(pipeA);
+		drawPipe(pipeB);
+		drawPipe(pipeC);
+		drawPipeTip(pipeA);
+		drawPipeTip(pipeB);
+		drawPipeTip(pipeC);
+		batcher.flush();
+		ScissorStack.popScissors();
+
+		drawPowerUp();
+		
+		if (myWorld.isRunning()) {
+			drawBird(runTime);
+			drawScore();
+			drawLives();
+		} else if (myWorld.isMenu()) {
+			drawBirdCentered(runTime);
+			drawMenuUI();
+		} else if (myWorld.isDifficulty()) {
+			drawBirdCentered(runTime);
+			drawDifficultyUI();
+			if (myWorld.isShuffle()) {
+				drawShuffleUI();
+			} else {
+				drawShuffleLockUI();
+				drawUnlockShuffle();
+			}
+		} else if (myWorld.isDifficultyHU()) {
+			drawBirdCentered(runTime);
+			drawDifficultyUIHU();
+			drawUnlockInsane();
+			if (myWorld.isShuffle()) {
+				drawShuffleUI();
+			} else {
+				drawShuffleLockUI();
+				drawUnlockShuffle();
+			}
+
+		} else if (myWorld.isDifficultyIU()) {
+			drawBirdCentered(runTime);
+			drawDifficultyUIIU();
+			drawUnlockHard();
+			drawUnlockInsane();
+			if (myWorld.isShuffle()) {
+				drawShuffleUI();
+			} else {
+				drawShuffleLockUI();
+				drawUnlockShuffle();
+			}
+
+		} else if (myWorld.isGameOver()) {
+			drawScoreboard();
+			drawBird(runTime);
+			drawGameOver();
+			drawRetry();
+		} else if (myWorld.isHighScore()) {
+			drawScoreboard();
+			drawBird(runTime);
+			drawHighScore();
+			drawRetry();
+		}
+		
+		
+		ScissorStack.calculateScissors(cam, 0, 0, screenWidth, screenHeight,
+				batcher.getTransformMatrix(), left, grassScissorsLeft);
+		ScissorStack.pushScissors(grassScissorsLeft);
+		batcher.flush();
+		drawStuff(grassL, frontGrassL);
+		drawStuff(grassL, backGrassL);
+		batcher.flush();
+		ScissorStack.popScissors();
+		
+		ScissorStack.calculateScissors(cam, 0, 0, screenWidth, screenHeight,
+				batcher.getTransformMatrix(), right, grassScissorsRight);
+		ScissorStack.pushScissors(grassScissorsRight);
+		batcher.flush();
+		drawStuff(grassR, frontGrassR);
+		drawStuff(grassR, backGrassR);
+		batcher.flush();
+		ScissorStack.popScissors();
+		
+		batcher.end();
+
+		drawTransition(delta);
+
+	}
+
+	public void prepareTransition(int r, int g, int b, float duration) {
+		transitionColor.set(r / 255.0f, g / 255.0f, b / 255.0f, 1);
+		alpha.setValue(1);
+		Tween.registerAccessor(Value.class, new ValueAccessor());
+		manager = new TweenManager();
+		Tween.to(alpha, -1, duration).target(0)
+				.ease(TweenEquations.easeOutQuad).start(manager);
+	}
+
+	private void drawTransition(float delta) {
+		if (alpha.getValue() > 0) {
+			manager.update(delta);
+			Gdx.gl.glEnable(GL10.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(transitionColor.r, transitionColor.g,
+					transitionColor.b, alpha.getValue());
+			shapeRenderer.rect(0, 0, 272, 300);
+			shapeRenderer.end();
+			Gdx.gl.glDisable(GL10.GL_BLEND);
+
+		}
+	}
+
+}
